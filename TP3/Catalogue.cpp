@@ -136,19 +136,27 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const{
     switch (choix)
     {
         case 1:
-        for(i=0; i<tailleAct;i++){
+            cout << "Entrez la ville de départ" << endl;
+            cin >> villeDep;
+            for(i=0; i<tailleAct;i++){
             if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
             break;
         case 2:
+            cout << "Entrez la ville d'arrivée" << endl;
+            cin >> villeArr;
         for(i=0; i<tailleAct;i++){
             if(!strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
             break;
         case 3:
-        for(i=0; i<tailleAct;i++){
+            cout << "Entrez la ville de départ" << endl;
+            cin >> villeDep;
+            cout << "Entrez la ville d'arrivée" << endl;
+            cin >> villeArr;
+            for(i=0; i<tailleAct;i++){
             if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()) && !strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
