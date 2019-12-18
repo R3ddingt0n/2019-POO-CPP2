@@ -22,7 +22,8 @@ int main()
              << "-- (2) Afficher le catalogue :" << endl
              << "-- (3) Rechercher un parcours dans le catalogue :" << endl
              << "-- (4) Sortir" << endl
-             << "-- (5) Ecrire les trajets dans un ficher" << endl;
+             << "-- (5) Ecrire les trajets dans un ficher" << endl
+             << "-- (6) Ecrire les trajets dans un ficher selon leur type" << endl;
         cin >> commande;
         string nomFich;
         switch(commande)
@@ -43,6 +44,12 @@ int main()
             cout << "Entrez le nom du ficheier ou vous voulez sauvegrader:";
             cin >> nomFich;
             catalogue.SauvegardeComplete(nomFich);
+            cout << "Sauvegarde en cours ...";
+            break;
+        case 6:
+            cout << "Entrez le nom du ficheier ou vous voulez sauvegrader:";
+            cin >> nomFich;
+            catalogue.SauvegardeSelonType(nomFich);
             cout << "Sauvegarde en cours ...";
             break;
         case -1:

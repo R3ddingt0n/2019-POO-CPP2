@@ -55,6 +55,8 @@ public:
 
     void SauvegardeComplete(string nomFich) const;
 
+    void SauvegardeSelonType(string nomFichier) const;
+
     //------------------------------------------------- Surcharge d'opérateurs
 
     //-------------------------------------------- Constructeurs - destructeur

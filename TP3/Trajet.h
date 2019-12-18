@@ -54,7 +54,7 @@ public:
     // Contrat :
     //
 
-    Trajet (const char *uneVilleDep, const char *uneVilleArr);
+    Trajet (const char *uneVilleDep, const char *uneVilleArr, const unsigned type);
     // Contrat :
     //    Affecte à villeDep la valeur uneVilleDep et à villeArr la valeur uneVilleArr
 
@@ -70,6 +70,7 @@ public:
     //----------------------------------------------------- Attributs protégés
     const char * villeDep; // Ville de départ du trajet
     const char * villeArr; // Ville d'arrivé du trajet
+    unsigned typeTrajet; // 1 si TrajetSimple, 2 si TrajetComplexe
 };
 
 //-------------------------------- Autres définitions dépendantes de <Trajet>
