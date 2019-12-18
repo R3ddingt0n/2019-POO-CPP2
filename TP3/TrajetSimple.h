@@ -10,10 +10,11 @@
 #if ! defined ( TRAJETSIMPLE_H )
 #define TRAJETSIMPLE_H
 
+#include <fstream>
+
 //--------------------------------------------------- Interfaces utilisées
 
 #include "Trajet.h"
-using namespace std;
 
 //------------------------------------------------------------- Constantes
 
@@ -23,43 +24,52 @@ enum MoyenTransport { AUTO, TRAIN, AVION, BATEAU };
 
 //------------------------------------------------------------------------
 // Rôle de la classe <TrajetSimple>
-// Un trajet simple permet de relier deux villes par un moyen de transport unique
+//
 //
 //------------------------------------------------------------------------
 
 class TrajetSimple : public Trajet
 {
-    //----------------------------------------------------------------- PUBLIC
+//----------------------------------------------------------------- PUBLIC
 
 public:
-    //----------------------------------------------------- Méthodes publiques
+//----------------------------------------------------- Méthodes publiques
 
-    virtual void Afficher() const;
+  virtual void Afficher() const;
+  // Contrat :
+  //    Permet d'afficher le trajet simple, doit être redéfinie par les classes filles
+
+  virtual void EcrireTrajet(ofstream & fichier) const;
+
+//------------------------------------------------- Surcharge d'opérateurs
+
+
+//-------------------------------------------- Constructeurs - destructeur
+  // TrajetSimple ( const TrajetSimple & unTrajetSimple );
+    // Mode d'emploi (constructeur de copie) :
+    //
     // Contrat :
-    //    Permet d'afficher le trajet simple
+    //
 
-    virtual void EcrireTrajet(ofstream & fichier) const;
-
-    //------------------------------------------------- Surcharge d'opérateurs
-
-
-    //-------------------------------------------- Constructeurs - destructeur
-
-    TrajetSimple (const char* uneVilleDep, const char* uneVilleArr, const MoyenTransport unMoyenTransport);
+  TrajetSimple (const char* uneVilleDep, const char* uneVilleArr, const MoyenTransport unMoyenTransport);
+    // Mode d'emploi :
+    //
     // Contrat :
-    //    Affecte à villeDep la valeur uneVilleDep, à villeArr la valeur uneVilleArr et à moyenTransport la valeur unMoyenTransport
+    //    Affecte à villeDep la valeur uneVilleDep et à villeArr la valeur uneVilleArr
 
-    virtual ~TrajetSimple ( );
+  virtual ~TrajetSimple ( );
+    // Mode d'emploi :
+    //
     // Contrat :
-    //    Détruit l'objet TrajetSimple
+    //    Détruit l'objet TrajetSimple, doit être redéfnie par les classes filles
 
-    //------------------------------------------------------------------ PRIVE
+//------------------------------------------------------------------ PRIVE
 
 protected:
-    //----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- Méthodes protégées
 
-    //----------------------------------------------------- Attributs protégés
-    const MoyenTransport moyenTransport;
+//----------------------------------------------------- Attributs protégés
+  const MoyenTransport moyenTransport;
 };
 
 //-------------------------------- Autres définitions dépendantes de <TrajetSimple>

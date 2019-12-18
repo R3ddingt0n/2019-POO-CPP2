@@ -94,6 +94,13 @@ void Catalogue::Rechercher(char* villeDep_, char* villeArr_)
     }
 }
 
+void Catalogue::SauvegardeComplete(string nomFich) const{
+    ofstream fich (nomFich.c_str());
+    for(unsigned i(0); i<tailleAct;i++){
+        mesTrajets[i]->EcrireTrajet(fich);
+    }
+}
+
 
 //------------------------------------------------- Surcharge d'opérateurs
 

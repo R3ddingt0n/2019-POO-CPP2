@@ -12,6 +12,8 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Trajet.h"
+#include <string>
+#include <fstream>
 //------------------------------------------------------------- Constantes
 const unsigned TAILLE_MAX = 5;
 const unsigned TAILLE_MAX_RECHERCHE = 50;
@@ -50,6 +52,8 @@ public:
     void Rechercher(char* villeDep_,char* villeArr_);
     // Contrat :
     // Recherche les différents trajets permettant d'aller de villeDep_ à villeArr_
+
+    void SauvegardeComplete(string nomFich) const;
 
     //------------------------------------------------- Surcharge d'opérateurs
 

@@ -24,6 +24,8 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 void TrajetSimple::Afficher () const
+// Algorithme :
+//
 {
     cout << " --- Trajet Simple --- " << endl;
     char* moyTrans = new char [20];
@@ -47,24 +49,36 @@ void TrajetSimple::Afficher () const
     delete [] moyTrans;
 } //----- Fin de Afficher
 
-void TrajetSimple::EcrireTrajet(ofstream & fichier) const
-{
-    return;
-}
 
 //-------------------------------------------- Constructeurs - destructeur
+//Xxx::Xxx ( const Xxx & unXxx )
+// Algorithme :
+//
+//{
+//#ifdef MAP
+//    cout << "Appel au constructeur de copie de <Xxx>" << endl;
+//#endif
+//} //----- Fin de Xxx (constructeur de copie)
 
 
 TrajetSimple::TrajetSimple (const char* uneVilleDep, const char* uneVilleArr, const MoyenTransport unMoyenTransport)
   :Trajet(uneVilleDep,uneVilleArr),moyenTransport(unMoyenTransport)
+// Algorithme :
+//
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;
 #endif
 } //----- Fin de TrajetSimple
 
+void TrajetSimple::EcrireTrajet(ofstream & fichier) const{
+  fichier << "S\n" << villeDep << '\n' << villeArr << '\n' << moyenTransport << '\n';
+}
+
 
 TrajetSimple::~TrajetSimple ( )
+// Algorithme :
+//
 {
 #ifdef MAP
     cout << "Appel au destructeur de <TrajetSimple>" << endl;
