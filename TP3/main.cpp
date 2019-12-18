@@ -22,7 +22,9 @@ int main()
              << "-- (2) Afficher le catalogue :" << endl
              << "-- (3) Rechercher un parcours dans le catalogue :" << endl
              << "-- (4) Sortir" << endl
-             << "-- (5) Ecrire les trajets dans un ficher" << endl;
+             << "-- (5) Ecrire tous les trajets dans un ficher" << endl
+             << "-- (6) Enregistrer les trajets dans un fichiers selon la ville de départ/d'arrivée ou les deux" << endl
+             << "-- (7) Enregistrer les trajets selon leur type" << endl;
         cin >> commande;
         string nomFich;
         switch(commande)
@@ -40,11 +42,22 @@ int main()
             cout << "Fermeture ..." << endl;
             return 0;
         case 5:
-            cout << "Entrez le nom du ficheier ou vous voulez sauvegrader:";
+            cout << "Entrez le nom du fichier ou vous voulez sauvegarder:";
             cin >> nomFich;
             catalogue.SauvegardeComplete(nomFich);
             cout << "Sauvegarde en cours ...";
             break;
+        case 6:
+            cout << "Entrez le nom du fichier ou vous voulez sauvegrader:";
+            cin >> nomFich;
+            catalogue.SauvegardeSelonVille(nomFich);
+            cout << "Sauvegarde en cours ...";
+            break;
+        case 7:
+            cout << "Entrez le nom du fichier ou vous voulez sauvegrader:";
+            cin >> nomFich;
+            //catalogue.SauvegardeSelonType(nomFich);
+            cout << "Sauvegarde en cours ...";
         case -1:
             break;
         default:

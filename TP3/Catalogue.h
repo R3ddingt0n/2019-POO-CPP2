@@ -55,6 +55,8 @@ public:
 
     void SauvegardeComplete(string nomFich) const;
 
+    void SauvegardeSelonVille(string nomFich) const;
+
     //------------------------------------------------- Surcharge d'opérateurs
 
     //-------------------------------------------- Constructeurs - destructeur
