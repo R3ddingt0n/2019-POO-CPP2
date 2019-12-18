@@ -97,7 +97,7 @@ void Catalogue::Rechercher(char* villeDep_, char* villeArr_)
 void Catalogue::SauvegardeComplete(string nomFich) const
 {
     ofstream fich (nomFich.c_str());
-    for(unsigned i(0); i<tailleAct;i++){
+    for(unsigned i(0); i<tailleAct;++i){
         mesTrajets[i]->EcrireTrajet(fich);
     }
 }
@@ -116,7 +116,7 @@ void Catalogue::SauvegardeSelonType(string nomFich) const
         return;
     }
     ofstream fich (nomFich.c_str());
-    for(unsigned i(0); i<tailleAct;i++){
+    for(unsigned i(0); i<tailleAct;++i){
         if(mesTrajets[i]->typeTrajet == commande)
             mesTrajets[i]->EcrireTrajet(fich);
     }
@@ -136,25 +136,43 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const{
     switch (choix)
     {
         case 1:
-        for(i=0; i<tailleAct;i++){
+        for(i=0; i<tailleAct;++i){
             if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
             break;
         case 2:
-        for(i=0; i<tailleAct;i++){
+        for(i=0; i<tailleAct;++i){
             if(!strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
             break;
         case 3:
-        for(i=0; i<tailleAct;i++){
+        for(i=0; i<tailleAct;++i){
             if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()) && !strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
             break;
         default:
             cout << "Commande non reconnue" << endl;
+    }
+}
+
+void Catalogue::SauvegarderSelonIntervalle(string nomFich) const
+{
+    unsigned min, max;
+    cout << "Borne min de l'intervalle :" << endl;
+    cin >> min;
+    cout << "Borne min de l'intervalle :" << endl;
+    cin >> max;
+    if(min > max || min > tailleAct || max > tailleAct)
+    {
+        cout << "Erreur dans le choix de l'intervalle" << endl;
+        return;
+    }
+    ofstream fich (nomFich.c_str());
+    for(unsigned i(min); i<max; ++i){
+        mesTrajets[i]->EcrireTrajet(fich);
     }
 }
 //------------------------------------------------- Surcharge d'opérateurs
