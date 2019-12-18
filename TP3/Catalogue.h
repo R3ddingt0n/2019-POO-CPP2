@@ -59,6 +59,8 @@ public:
   
     void SauvegardeSelonVille(string nomFich) const;
 
+    void SauvegarderSelonIntervalle(string nomFich) const;
+
     //------------------------------------------------- Surcharge d'opérateurs
 
     //-------------------------------------------- Constructeurs - destructeur
