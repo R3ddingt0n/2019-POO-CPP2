@@ -95,7 +95,7 @@ void TrajetComplexe::EcrireTrajet(ofstream & fichier) const
 
 
 TrajetComplexe::TrajetComplexe (Trajet* pplisteTrajets[], const unsigned fnbElem,const char* uneVilleDep,const char*uneVilleArr)
-  :Trajet(uneVilleDep,uneVilleArr)
+  :Trajet(uneVilleDep,uneVilleArr,2)
 // Algorithme : rempli le tableau de pointeurs m_ppTrajet avec les valeurs du tableau pplisteTrajets
 //
 {

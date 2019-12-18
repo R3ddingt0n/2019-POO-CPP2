@@ -38,8 +38,8 @@ const char *Trajet::getVilleArr() const
 //-------------------------------------------- Constructeurs - destructeur
 
 
-Trajet::Trajet (const char* uneVilleDep, const char* uneVilleArr )
-    :villeDep(uneVilleDep),villeArr(uneVilleArr)
+Trajet::Trajet (const char* uneVilleDep, const char* uneVilleArr , const unsigned type)
+    :villeDep(uneVilleDep),villeArr(uneVilleArr), typeTrajet(type)
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Trajet>" << endl;

@@ -62,7 +62,7 @@ void TrajetSimple::Afficher () const
 
 
 TrajetSimple::TrajetSimple (const char* uneVilleDep, const char* uneVilleArr, const MoyenTransport unMoyenTransport)
-  :Trajet(uneVilleDep,uneVilleArr),moyenTransport(unMoyenTransport)
+  :Trajet(uneVilleDep,uneVilleArr,1),moyenTransport(unMoyenTransport)
 // Algorithme :
 //
 {

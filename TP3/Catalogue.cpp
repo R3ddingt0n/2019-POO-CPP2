@@ -94,10 +94,31 @@ void Catalogue::Rechercher(char* villeDep_, char* villeArr_)
     }
 }
 
-void Catalogue::SauvegardeComplete(string nomFich) const{
+void Catalogue::SauvegardeComplete(string nomFich) const
+{
     ofstream fich (nomFich.c_str());
     for(unsigned i(0); i<tailleAct;i++){
         mesTrajets[i]->EcrireTrajet(fich);
+    }
+}
+
+
+void Catalogue::SauvegardeSelonType(string nomFich) const
+{
+    cout << "Choisir les trajets à conserver :" << endl
+         << "-- (1) Les trajets simples" << endl
+         << "-- (2) Les trajets complexes" << endl;
+    unsigned commande;
+    cin >> commande;
+    if(commande != 1 && commande != 2)
+    {
+        cout << "Commande invalide" << endl;
+        return;
+    }
+    ofstream fich (nomFich.c_str());
+    for(unsigned i(0); i<tailleAct;i++){
+        if(mesTrajets[i]->typeTrajet == commande)
+            mesTrajets[i]->EcrireTrajet(fich);
     }
 }
 
@@ -136,8 +157,6 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const{
             cout << "Commande non reconnue" << endl;
     }
 }
-
-
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
