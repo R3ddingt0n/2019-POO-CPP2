@@ -102,6 +102,7 @@ void Catalogue::SauvegardeComplete(string nomFich) const
     }
 }
 
+
 void Catalogue::SauvegardeSelonType(string nomFich) const
 {
     cout << "Choisir les trajets à conserver :" << endl
@@ -118,6 +119,42 @@ void Catalogue::SauvegardeSelonType(string nomFich) const
     for(unsigned i(0); i<tailleAct;i++){
         if(mesTrajets[i]->typeTrajet == commande)
             mesTrajets[i]->EcrireTrajet(fich);
+    }
+}
+
+void Catalogue::SauvegardeSelonVille(string nomFich) const{
+    ofstream fich (nomFich.c_str());
+    cout << "Bienvenue dans le menu de sauvegarde selon ville:" << endl
+         << "-- (1) Sauvegarde selon la ville de départ" << endl
+         << "-- (2) Sauvegarde selon la ville d'arrivée" << endl
+         << "-- (3) Sauvegarde selon la ville de départ et d'arrivée" << endl;
+    string villeDep;
+    string villeArr;
+    unsigned choix;
+    cin >> choix;
+    unsigned i;
+    switch (choix)
+    {
+        case 1:
+        for(i=0; i<tailleAct;i++){
+            if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()))
+                mesTrajets[i]->EcrireTrajet(fich);
+        }
+            break;
+        case 2:
+        for(i=0; i<tailleAct;i++){
+            if(!strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
+                mesTrajets[i]->EcrireTrajet(fich);
+        }
+            break;
+        case 3:
+        for(i=0; i<tailleAct;i++){
+            if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()) && !strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
+                mesTrajets[i]->EcrireTrajet(fich);
+        }
+            break;
+        default:
+            cout << "Commande non reconnue" << endl;
     }
 }
 //------------------------------------------------- Surcharge d'opérateurs

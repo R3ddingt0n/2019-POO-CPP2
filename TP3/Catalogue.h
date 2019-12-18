@@ -55,7 +55,11 @@ public:
 
     void SauvegardeComplete(string nomFich) const;
 
+<<<<<<< HEAD
     void SauvegardeSelonType(string nomFichier) const;
+=======
+    void SauvegardeSelonVille(string nomFich) const;
+>>>>>>> c43adb2a3144755214a837c0451bcaf73f8015a6
 
     //------------------------------------------------- Surcharge d'opérateurs
 
