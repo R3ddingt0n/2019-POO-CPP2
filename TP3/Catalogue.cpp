@@ -13,11 +13,15 @@
 //-------------------------------------------------------- Include système
 #include <iostream>
 #include <cstring>
+#include <string>
+#include <vector>
 using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Catalogue.h"
 #include "Trajet.h"
+#include "TrajetSimple.h"
+#include "TrajetComplexe.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -36,7 +40,8 @@ void Catalogue::Afficher() const
     cout << "Affichage du Catalogue" << endl;
     for(unsigned i(0); i < tailleAct; ++i)
     {
-      (*(mesTrajets)[i]).Afficher();
+        (*(mesTrajets)[i]).Afficher();
+        cout << endl;
     }
     cout << "Fin de l'affichage du Catalogue" << endl;
 } //----- Fin de Afficher
@@ -96,15 +101,20 @@ void Catalogue::Rechercher(char* villeDep_, char* villeArr_)
 
 void Catalogue::SauvegardeComplete(string nomFich) const
 {
+#ifdef MAP
+    cout << "Appel à SauvegardeComplete() de <Catalogue>" << endl;
+#endif
     ofstream fich (nomFich.c_str());
     for(unsigned i(0); i<tailleAct;++i){
         mesTrajets[i]->EcrireTrajet(fich);
     }
 }
 
-
 void Catalogue::SauvegardeSelonType(string nomFich) const
 {
+#ifdef MAP
+    cout << "Appel à SauvegardeSelonType() de <Catalogue>" << endl;
+#endif
     cout << "Choisir les trajets à conserver :" << endl
          << "-- (1) Les trajets simples" << endl
          << "-- (2) Les trajets complexes" << endl;
@@ -122,7 +132,11 @@ void Catalogue::SauvegardeSelonType(string nomFich) const
     }
 }
 
-void Catalogue::SauvegardeSelonVille(string nomFich) const{
+void Catalogue::SauvegardeSelonVille(string nomFich) const
+{
+#ifdef MAP
+    cout << "Appel à SauvegardeSelonVille() de <Catalogue>" << endl;
+#endif
     ofstream fich (nomFich.c_str());
     cout << "Bienvenue dans le menu de sauvegarde selon ville:" << endl
          << "-- (1) Sauvegarde selon la ville de départ" << endl
@@ -135,39 +149,34 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const{
     unsigned i;
     switch (choix)
     {
-        case 1:
-            cout << "Entrez la ville de départ" << endl;
-            cin >> villeDep;
-            for(i=0; i<tailleAct;++i){
+    case 1:
+        for(i=0; i<tailleAct;++i){
             if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
-            break;
-        case 2:
-            cout << "Entrez la ville d'arrivée" << endl;
-            cin >> villeArr;
-            for(i=0; i<tailleAct;++i){
+        break;
+    case 2:
+        for(i=0; i<tailleAct;++i){
             if(!strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
-            break;
-        case 3:
-            cout << "Entrez la ville de départ" << endl;
-            cin >> villeDep;
-            cout << "Entrez la ville d'arrivée" << endl;
-            cin >> villeArr;
-            for(i=0; i<tailleAct;++i){
+        break;
+    case 3:
+        for(i=0; i<tailleAct;++i){
             if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()) && !strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
-            break;
-        default:
-            cout << "Commande non reconnue" << endl;
+        break;
+    default:
+        cout << "Commande non reconnue" << endl;
     }
 }
 
 void Catalogue::SauvegarderSelonIntervalle(string nomFich) const
 {
+#ifdef MAP
+    cout << "Appel à SauvegardeSelonIntervalle() de <Catalogue>" << endl;
+#endif
     unsigned min, max;
     cout << "Borne min de l'intervalle :" << endl;
     cin >> min;
@@ -183,6 +192,102 @@ void Catalogue::SauvegarderSelonIntervalle(string nomFich) const
         mesTrajets[i]->EcrireTrajet(fich);
     }
 }
+
+void Catalogue::ChargerFichierComplet(string nomFich)
+{
+#ifdef MAP
+    cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
+#endif
+    int nbTrajets;
+    ifstream fichier(nomFich.c_str());
+    string buffer;
+    getline(fichier, buffer);
+    nbTrajets = atoi(buffer.c_str());
+    vector<Trajet*> listeTrajets;
+    while(fichier.good() && nbTrajets > 0)
+    {
+        LireTrajet(fichier, listeTrajets);
+        --nbTrajets;
+    }
+    for(unsigned i(0); i < listeTrajets.size(); ++i)
+    {
+        Ajouter(listeTrajets[i]);
+    }
+}
+
+void Catalogue::LireTrajet(ifstream & fichier, vector<Trajet*> & listeTrajets)
+{
+#ifdef MAP
+    cout << "Appel à LireTrajet() de <Catalogue>" << endl;
+#endif
+    string buffer;
+    getline(fichier, buffer);
+    if(buffer.at(0) == 'S')
+    {
+        LireTrajetSimple(fichier, listeTrajets);
+    }
+    else if(buffer.at(0) == 'C')
+    {
+        LireTrajetComplexe(fichier, listeTrajets);
+    }
+}
+
+void Catalogue::LireTrajetSimple(ifstream & fichier, vector<Trajet*> &listeTrajets)
+{
+#ifdef MAP
+    cout << "Appel à LireTrajetSimple() de <Catalogue>" << endl;
+#endif
+    string villeDep;
+    string villeArr;
+    getline(fichier, villeDep);
+    getline(fichier, villeArr);
+    int moyenTransport;
+    string buffer;
+    getline(fichier, buffer);
+    moyenTransport = atoi(buffer.c_str());
+    char *villeDep_ = new char[40];
+    char *villeArr_ = new char[40];
+    strcpy(villeDep_, villeDep.c_str());
+    strcpy(villeArr_, villeArr.c_str());
+    TrajetSimple* trajet = new TrajetSimple(villeDep_,villeArr_,static_cast<MoyenTransport>(moyenTransport));
+    listeTrajets.push_back(trajet);
+}
+
+void Catalogue::LireTrajetComplexe(ifstream & fichier, vector<Trajet*> & listeTrajets)
+{
+#ifdef MAP
+    cout << "Appel à LireTrajetComplexe() de <Catalogue>" << endl;
+#endif
+    string villeDepGlob;
+    string villeArrGlob;
+    getline(fichier, villeDepGlob);
+    getline(fichier, villeArrGlob);
+    unsigned nbSousTrajets;
+    string buffer;
+    getline(fichier, buffer);
+    nbSousTrajets = atoi(buffer.c_str());
+    Trajet** liste = new Trajet*[nbSousTrajets];
+    vector<Trajet*> listeSousTrajets;
+    for(unsigned i(0); i < nbSousTrajets; ++i)
+    {
+        LireTrajetSimple(fichier,listeSousTrajets);
+        liste[i] = listeSousTrajets[i];
+    }
+    char *villeDepGlob_ = new char[40];
+    char *villeArrGlob_ = new char[40];
+    strcpy(villeDepGlob_, villeDepGlob.c_str());
+    strcpy(villeArrGlob_, villeArrGlob.c_str());
+    if(TrajetComplexe::listeCorrect(liste, nbSousTrajets, villeDepGlob_, villeArrGlob_))
+    {
+        TrajetComplexe* trajetComplexe = new TrajetComplexe(liste, nbSousTrajets, villeDepGlob_, villeArrGlob_);
+        listeTrajets.push_back(trajetComplexe);
+    }
+    else
+    {
+        cerr << "Trajet complexe erroné";
+    }
+}
+
 //------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur

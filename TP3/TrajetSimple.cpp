@@ -27,25 +27,25 @@ void TrajetSimple::Afficher () const
 // Algorithme :
 //
 {
-    cout << " --- Trajet Simple --- " << endl;
+    cout << "--------- Trajet Simple ---------" << endl;
     char* moyTrans = new char [20];
     if(moyenTransport == MoyenTransport::AUTO)
     {
-      strcpy(moyTrans,"AUTO");
+        strcpy(moyTrans,"AUTO");
     }else if(moyenTransport == MoyenTransport::TRAIN)
     {
-      strcpy(moyTrans,"TRAIN");
+        strcpy(moyTrans,"TRAIN");
     }else if(moyenTransport == MoyenTransport::AVION)
     {
-      strcpy(moyTrans,"AVION");
+        strcpy(moyTrans,"AVION");
     }else if(moyenTransport == MoyenTransport::BATEAU)
     {
-      strcpy(moyTrans,"BATEAU");
+        strcpy(moyTrans,"BATEAU");
     }
     cout << "Ville de départ : " << villeDep << endl;
     cout << "Ville d'arrivée : " << villeArr << endl;
     cout << "Moyen de Transport : " << moyTrans << endl;
-    cout << "--------------------------------" << endl;
+    cout << "---------------------------------" << endl;
     delete [] moyTrans;
 } //----- Fin de Afficher
 
@@ -62,9 +62,9 @@ void TrajetSimple::Afficher () const
 
 
 TrajetSimple::TrajetSimple (const char* uneVilleDep, const char* uneVilleArr, const MoyenTransport unMoyenTransport)
-  :Trajet(uneVilleDep,uneVilleArr,1),moyenTransport(unMoyenTransport)
-// Algorithme :
-//
+    :Trajet(uneVilleDep,uneVilleArr,1),moyenTransport(unMoyenTransport)
+    // Algorithme :
+    //
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetSimple>" << endl;
@@ -72,7 +72,7 @@ TrajetSimple::TrajetSimple (const char* uneVilleDep, const char* uneVilleArr, co
 } //----- Fin de TrajetSimple
 
 void TrajetSimple::EcrireTrajet(ofstream & fichier) const{
-  fichier << "S\n" << villeDep << '\n' << villeArr << '\n' << moyenTransport << '\n';
+    fichier << "S\n" << villeDep << '\n' << villeArr << '\n' << moyenTransport << '\n';
 }
 
 
