@@ -7,8 +7,12 @@ using namespace std;
 #include <string>
 
 void AjouterTrajet(Catalogue & catalogue);
+void AjouterTrajetComplexe(Catalogue & catalogue);
+void AjouterTrajetSimple(Catalogue & catalogue);
 void RechercherTrajet(Catalogue & catalogue);
 void AfficherTrajet(Catalogue & catalogue);
+void SauvegarderCatalogue(Catalogue & catalogue);
+void ChargerCatalogue(Catalogue & catalogue);
 
 int main()
 {
@@ -21,11 +25,9 @@ int main()
              << "-- (1) Ajouter un trajet au catalogue :" << endl
              << "-- (2) Afficher le catalogue :" << endl
              << "-- (3) Rechercher un parcours dans le catalogue :" << endl
-             << "-- (4) Sortir" << endl
-             << "-- (5) Ecrire tous les trajets dans un ficher" << endl
-             << "-- (6) Enregistrer les trajets dans un fichiers selon la ville de départ/d'arrivée ou les deux" << endl
-             << "-- (7) Enregistrer les trajets selon leur type" << endl
-             << "-- (8) Charger le catalogue à partir d'un fichier" << endl;
+             << "-- (4) Sauvegarder le catalogue" << endl
+             << "-- (5) Charger un fichier dans le catalogue" << endl
+             << "-- (6) Sortir" << endl;
         cin >> commande;
         string nomFich;
         switch(commande)
@@ -40,26 +42,14 @@ int main()
             RechercherTrajet(catalogue);
             break;
         case 4:
-            cout << "Fermeture ..." << endl;
-            return 0;
+            SauvegarderCatalogue(catalogue);
+            break;
         case 5:
-            cout << "Entrez le nom du fichier ou vous voulez sauvegarder:";
-            cin >> nomFich;
-            catalogue.SauvegardeComplete(nomFich);
-            cout << "Sauvegarde en cours ...";
+            ChargerCatalogue(catalogue);
             break;
         case 6:
-            cout << "Entrez le nom du fichier ou vous voulez sauvegrader:" << endl;
-            cin >> nomFich;
-            catalogue.SauvegardeSelonVille(nomFich);
-            cout << "Sauvegarde en cours ..." << endl;
-            break;
-        case 7:
-            cout << "Entrez le nom du fichier ou vous voulez sauvegrader:" << endl;
-            cin >> nomFich;
-            catalogue.SauvegardeSelonType(nomFich);
-            cout << "Sauvegarde en cours ..." << endl;
-            break;
+            cout << "Fermeture ..." << endl;
+            return 0;
         case 8:
             cout << "Entrez le nom du fichier de sauvegarde:" << endl;
             cin >> nomFich;
@@ -68,7 +58,7 @@ int main()
         case -1:
             break;
         default:
-            cout << "Commande inconnue." << endl;
+            cerr << "Commande inconnue." << endl;
             break;
         }
     }
@@ -109,6 +99,69 @@ int main()
 
 
     return 0;
+}
+
+void SauvegarderCatalogue(Catalogue & catalogue)
+{
+    cout << "(1) Sauvegarde Complète" << endl
+         << "(2) Sauvegarde selon la villle de départ et/ou d'arrivée" << endl
+         << "(3) Sauvegarde selon le type de trajet" << endl
+         << "(4) Sauvegarde selon un intervalle de trajets" << endl;
+    int commande(0);
+    cin >> commande;
+    string nomFichier;
+    cout << "Entrez le nom du fichier où vous voulez sauvegarder:";
+    cin >> nomFichier;
+    switch (commande) {
+    case 1:
+        catalogue.SauvegardeComplete(nomFichier);
+        break;
+    case 2:
+        catalogue.SauvegardeSelonVille(nomFichier);
+        break;
+    case 3:
+        catalogue.SauvegardeSelonType(nomFichier);
+        break;
+    case 4:
+        catalogue.SauvegarderSelonIntervalle(nomFichier);
+        break;
+    default:
+        cerr << "Erreur" << endl;
+        return;
+    }
+}
+
+void ChargerCatalogue(Catalogue & catalogue)
+{
+    cout << "(1) Charger l'intégralité du fichier" << endl
+         << "(2) Charger selon la villle de départ et/ou d'arrivée" << endl
+         << "(3) Charger selon le type de trajet" << endl
+         << "(4) Charger selon un intervalle de trajets" << endl;
+    int commande(0);
+    cin >> commande;
+    string nomFichier;
+    cout << "Entrez le nom du fichier de sauvegarde:";
+    cin >> nomFichier;
+    switch (commande) {
+    case 1:
+        catalogue.ChargerFichierComplet(nomFichier);
+        break;
+    case 2:
+        cerr << "Work in progress" << endl;
+        //catalogue.ChargerFichierSelonVille(nomFichier);
+        break;
+    case 3:
+        cerr << "Work in progress" << endl;
+        //catalogue.ChargerFichierSelonType(nomFichier);
+        break;
+    case 4:
+        cerr << "Work in progress" << endl;
+        //catalogue.ChargerFichierSelonIntervalle(nomFichier);
+        break;
+    default:
+        cerr << "Erreur" << endl;
+        return;
+    }
 }
 
 void RechercherTrajet(Catalogue & catalogue)
