@@ -59,7 +59,7 @@ public:
     void SauvegardeComplete(string nomFich) const;
 
     void SauvegardeSelonType(string nomFich) const;
-  
+
     void SauvegardeSelonVille(string nomFich) const;
 
     void SauvegarderSelonIntervalle(string nomFich) const;

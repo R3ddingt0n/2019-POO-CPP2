@@ -30,46 +30,46 @@ enum MoyenTransport { AUTO, TRAIN, AVION, BATEAU };
 
 class TrajetSimple : public Trajet
 {
-//----------------------------------------------------------------- PUBLIC
+    //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
+    //----------------------------------------------------- Méthodes publiques
 
-  virtual void Afficher() const;
-  // Contrat :
-  //    Permet d'afficher le trajet simple, doit être redéfinie par les classes filles
+    virtual void Afficher() const;
+    // Contrat :
+    //    Permet d'afficher le trajet simple, doit être redéfinie par les classes filles
 
-  virtual void EcrireTrajet(ofstream & fichier) const;
+    virtual void EcrireTrajet(ofstream & fichier) const;
 
-//------------------------------------------------- Surcharge d'opérateurs
+    //------------------------------------------------- Surcharge d'opérateurs
 
 
-//-------------------------------------------- Constructeurs - destructeur
-  // TrajetSimple ( const TrajetSimple & unTrajetSimple );
+    //-------------------------------------------- Constructeurs - destructeur
+    // TrajetSimple ( const TrajetSimple & unTrajetSimple );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-  TrajetSimple (const char* uneVilleDep, const char* uneVilleArr, const MoyenTransport unMoyenTransport);
+    TrajetSimple (const char* uneVilleDep, const char* uneVilleArr, const MoyenTransport unMoyenTransport);
     // Mode d'emploi :
     //
     // Contrat :
     //    Affecte à villeDep la valeur uneVilleDep et à villeArr la valeur uneVilleArr
 
-  virtual ~TrajetSimple ( );
+    virtual ~TrajetSimple ( );
     // Mode d'emploi :
     //
     // Contrat :
     //    Détruit l'objet TrajetSimple, doit être redéfnie par les classes filles
 
-//------------------------------------------------------------------ PRIVE
+    //------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+    //----------------------------------------------------- Méthodes protégées
 
-//----------------------------------------------------- Attributs protégés
-  const MoyenTransport moyenTransport;
+    //----------------------------------------------------- Attributs protégés
+    const MoyenTransport moyenTransport;
 };
 
 //-------------------------------- Autres définitions dépendantes de <TrajetSimple>

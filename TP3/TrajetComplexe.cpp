@@ -29,35 +29,35 @@ bool TrajetComplexe::listeCorrect(Trajet* ppListeTrajets[],const unsigned nbElem
 //              2) chaque ville de départ d'un trajet doit correspondre à la ville d'arrivée du trajet précédent
 //              3) vérification: vArr est bien la ville de départ du dernier trajet de ppListeTrajets
 {
-  const char* villeDepart;
-  const char* villeArrivee;
-  villeDepart = ppListeTrajets[0]->getVilleDep();
-  if(strcmp(villeDepart,vDep) != 0)
-  {
-      return false;
-  }
-  villeArrivee = ppListeTrajets[0]->getVilleArr();
-  if(nbElem<2 && strcmp(villeArrivee,vArr) == 0)
-  {
-      return true;
-  }
-  else if(nbElem < 2 && strcmp(villeArrivee, vArr) != 0)
-  {
-      return false;
-  }
-  for(unsigned i = 1; i<nbElem; ++i)
+    const char* villeDepart;
+    const char* villeArrivee;
+    villeDepart = ppListeTrajets[0]->getVilleDep();
+    if(strcmp(villeDepart,vDep) != 0)
     {
-      if(strcmp(ppListeTrajets[i]->getVilleDep(),villeArrivee) != 0)
-      {
-          return false;
-      }
-      villeArrivee = ppListeTrajets[i]->getVilleArr();
+        return false;
     }
-  if(strcmp(villeArrivee,vArr) != 0)
-  {
-      return false;
-  }
-  return true;
+    villeArrivee = ppListeTrajets[0]->getVilleArr();
+    if(nbElem<2 && strcmp(villeArrivee,vArr) == 0)
+    {
+        return true;
+    }
+    else if(nbElem < 2 && strcmp(villeArrivee, vArr) != 0)
+    {
+        return false;
+    }
+    for(unsigned i = 1; i<nbElem; ++i)
+    {
+        if(strcmp(ppListeTrajets[i]->getVilleDep(),villeArrivee) != 0)
+        {
+            return false;
+        }
+        villeArrivee = ppListeTrajets[i]->getVilleArr();
+    }
+    if(strcmp(villeArrivee,vArr) != 0)
+    {
+        return false;
+    }
+    return true;
 } //----- Fin de Méthode
 
 void TrajetComplexe::Afficher() const
@@ -96,9 +96,9 @@ void TrajetComplexe::EcrireTrajet(ofstream & fichier) const
 
 
 TrajetComplexe::TrajetComplexe (Trajet* pplisteTrajets[], const unsigned fnbElem,const char* uneVilleDep,const char*uneVilleArr)
-  :Trajet(uneVilleDep,uneVilleArr,2)
-// Algorithme : rempli le tableau de pointeurs m_ppTrajet avec les valeurs du tableau pplisteTrajets
-//
+    :Trajet(uneVilleDep,uneVilleArr,2)
+    // Algorithme : rempli le tableau de pointeurs m_ppTrajet avec les valeurs du tableau pplisteTrajets
+    //
 {
 #ifdef MAP
     cout << "Appel au constructeur de <TrajetComplexe>" << endl;
@@ -120,9 +120,9 @@ TrajetComplexe::~TrajetComplexe ( )
     cout << "Appel au destructeur de <TrajetComplexe>" << endl;
 #endif
     for(unsigned i = 0; i<nbElem; ++i)
-      {
+    {
         delete m_ppTrajet[i];
-      }
+    }
     delete [] m_ppTrajet;
 } //----- Fin de ~TrajetComplexe
 
