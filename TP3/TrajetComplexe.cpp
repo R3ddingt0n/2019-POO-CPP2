@@ -64,14 +64,15 @@ void TrajetComplexe::Afficher() const
 // Algorithme : affiche les trajet complexe en faisant appel à la méthode Afficher de chacun de ses sous-trajets
 //
 {
-    cout << " --- Trajet Complexe --- " << endl;
-    cout << "Départ : " << villeDep << " et destination : " << villeArr << endl;
+    cout << "-------- Trajet Complexe --------" << endl;
+    cout << "Ville de départ : " << villeDep << endl;
+    cout << "Ville d'arrivée : " << villeArr << endl;
     cout << "Étapes :" << endl;
     for(unsigned i = 0; i<nbElem; ++i)
     {
         m_ppTrajet[i]->Afficher();
     }
-    cout << endl << "--------------------------------" << endl;
+    cout << "------ Fin Trajet Complexe ------" << endl;
 } //------Fin de Méthode
 
 void TrajetComplexe::EcrireTrajet(ofstream & fichier) const

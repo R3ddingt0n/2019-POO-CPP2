@@ -12,8 +12,11 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Trajet.h"
+#include "TrajetSimple.h"
+#include "TrajetComplexe.h"
 #include <string>
 #include <fstream>
+#include <vector>
 //------------------------------------------------------------- Constantes
 const unsigned TAILLE_MAX = 5;
 const unsigned TAILLE_MAX_RECHERCHE = 50;
@@ -60,6 +63,14 @@ public:
     void SauvegardeSelonVille(string nomFich) const;
 
     void SauvegarderSelonIntervalle(string nomFich) const;
+
+    void ChargerFichierComplet(string nomFich);
+
+    void LireTrajet(ifstream & fichier, vector<Trajet*> & listeTrajets);
+
+    void LireTrajetSimple(ifstream & fichier, vector<Trajet*> & listeTrajets);
+
+    void LireTrajetComplexe(ifstream & fichier, vector<Trajet*> & listeTrajets);
 
     //------------------------------------------------- Surcharge d'opérateurs
 

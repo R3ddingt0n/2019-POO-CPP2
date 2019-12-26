@@ -27,7 +27,7 @@ void TrajetSimple::Afficher () const
 // Algorithme :
 //
 {
-    cout << " --- Trajet Simple --- " << endl;
+    cout << "--------- Trajet Simple ---------" << endl;
     char* moyTrans = new char [20];
     if(moyenTransport == MoyenTransport::AUTO)
     {
@@ -45,7 +45,7 @@ void TrajetSimple::Afficher () const
     cout << "Ville de départ : " << villeDep << endl;
     cout << "Ville d'arrivée : " << villeArr << endl;
     cout << "Moyen de Transport : " << moyTrans << endl;
-    cout << "--------------------------------" << endl;
+    cout << "---------------------------------" << endl;
     delete [] moyTrans;
 } //----- Fin de Afficher
 
