@@ -150,20 +150,29 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const
     switch (choix)
     {
     case 1:
+        cout << "Entrez la ville de départ:" << endl;
+        cin >> villeDep;
         for(i=0; i<tailleAct;++i){
-            if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()))
+            if(!strncmp(mesTrajets[i]->getVilleDep(), villeDep.c_str(), strlen(mesTrajets[i]->getVilleDep())-1))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
         break;
     case 2:
+        cout << "Entrez la ville d'arrivée:" << endl;
+        cin >> villeArr;
         for(i=0; i<tailleAct;++i){
-            if(!strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
+            string villeA = mesTrajets[i]->getVilleArr();
+            if(!strncmp(villeA.c_str(), villeArr.c_str(), villeA.length()-1))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
         break;
     case 3:
+        cout << "Entrez la ville de départ:" << endl;
+        cin >> villeDep;
+        cout << "Entrez la ville d'arrivée:" << endl;
+        cin >> villeArr;
         for(i=0; i<tailleAct;++i){
-            if(!strcmp(mesTrajets[i]->getVilleDep(), villeDep.c_str()) && !strcmp(mesTrajets[i]->getVilleArr(), villeArr.c_str()))
+            if(!strncmp(mesTrajets[i]->getVilleDep(), villeDep.c_str(), strlen(mesTrajets[i]->getVilleDep())-1) && !strncmp(mesTrajets[i]->getVilleArr(), villeArr.c_str(), strlen(mesTrajets[i]->getVilleArr())-1))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
         break;
@@ -198,16 +207,17 @@ void Catalogue::ChargerFichierComplet(string nomFich)
 #ifdef MAP
     cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
 #endif
-    int nbTrajets;
     ifstream fichier(nomFich.c_str());
     string buffer;
-    getline(fichier, buffer);
-    nbTrajets = atoi(buffer.c_str());
+    fichier.seekg(0, fichier.end);
+    long length = fichier.tellg();
+    fichier.seekg(0, fichier.beg);
     vector<Trajet*> listeTrajets;
-    while(fichier.good() && nbTrajets > 0)
+    long pos;
+    while(fichier.good() && pos != length)
     {
         LireTrajet(fichier, listeTrajets);
-        --nbTrajets;
+        pos = fichier.tellg();
     }
     for(unsigned i(0); i < listeTrajets.size(); ++i)
     {
@@ -264,12 +274,14 @@ void Catalogue::LireTrajetComplexe(ifstream & fichier, vector<Trajet*> & listeTr
     getline(fichier, villeArrGlob);
     unsigned nbSousTrajets;
     string buffer;
+    string bufferS;
     getline(fichier, buffer);
     nbSousTrajets = atoi(buffer.c_str());
     Trajet** liste = new Trajet*[nbSousTrajets];
     vector<Trajet*> listeSousTrajets;
     for(unsigned i(0); i < nbSousTrajets; ++i)
     {
+        getline(fichier, bufferS);
         LireTrajetSimple(fichier,listeSousTrajets);
         liste[i] = listeSousTrajets[i];
     }

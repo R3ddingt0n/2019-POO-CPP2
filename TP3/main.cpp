@@ -104,7 +104,7 @@ int main()
 void SauvegarderCatalogue(Catalogue & catalogue)
 {
     cout << "(1) Sauvegarde Complète" << endl
-         << "(2) Sauvegarde selon la villle de départ et/ou d'arrivée" << endl
+         << "(2) Sauvegarde selon la ville de départ et/ou d'arrivée" << endl
          << "(3) Sauvegarde selon le type de trajet" << endl
          << "(4) Sauvegarde selon un intervalle de trajets" << endl;
     int commande(0);
