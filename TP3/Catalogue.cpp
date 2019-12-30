@@ -210,10 +210,10 @@ void Catalogue::ChargerFichierComplet(string nomFich)
     ifstream fichier(nomFich.c_str());
     string buffer;
     fichier.seekg(0, fichier.end);
-    long length = fichier.tellg();
+    long long length = fichier.tellg();
     fichier.seekg(0, fichier.beg);
     vector<Trajet*> listeTrajets;
-    long pos;
+    long long pos(0);
     while(fichier.good() && pos != length)
     {
         LireTrajet(fichier, listeTrajets);
