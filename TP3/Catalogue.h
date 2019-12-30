@@ -91,6 +91,8 @@ protected:
 
     //----------------------------------------------------- Attributs protégés
 
+    void LireFichier(string nomFich, vector<Trajet *> &listeTrajets);
+    
 private:
     //----------------------------------------------------- Méthodes privées
     void Ajuster();

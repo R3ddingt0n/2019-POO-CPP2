@@ -202,23 +202,28 @@ void Catalogue::SauvegarderSelonIntervalle(string nomFich) const
     }
 }
 
-void Catalogue::ChargerFichierComplet(string nomFich)
+void Catalogue::LireFichier(string nomFich, vector<Trajet *> & listeTrajets)
 {
-#ifdef MAP
-    cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
-#endif
     ifstream fichier(nomFich.c_str());
     string buffer;
     fichier.seekg(0, fichier.end);
     long long length = fichier.tellg();
     fichier.seekg(0, fichier.beg);
-    vector<Trajet*> listeTrajets;
     long long pos(0);
     while(fichier.good() && pos != length)
     {
         LireTrajet(fichier, listeTrajets);
         pos = fichier.tellg();
     }
+}
+
+void Catalogue::ChargerFichierComplet(string nomFich)
+{
+#ifdef MAP
+    cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
+#endif
+    vector<Trajet*> listeTrajets;
+    LireFichier(nomFich, listeTrajets);
     for(unsigned i(0); i < listeTrajets.size(); ++i)
     {
         Ajouter(listeTrajets[i]);
