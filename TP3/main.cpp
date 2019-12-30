@@ -110,7 +110,7 @@ void SauvegarderCatalogue(Catalogue & catalogue)
     int commande(0);
     cin >> commande;
     string nomFichier;
-    cout << "Entrez le nom du fichier où vous voulez sauvegarder:";
+    cout << "Entrez le nom du fichier où vous voulez sauvegarder:" << endl;
     cin >> nomFichier;
     switch (commande) {
     case 1:
@@ -140,7 +140,7 @@ void ChargerCatalogue(Catalogue & catalogue)
     int commande(0);
     cin >> commande;
     string nomFichier;
-    cout << "Entrez le nom du fichier de sauvegarde:";
+    cout << "Entrez le nom du fichier de sauvegarde:" << endl;
     cin >> nomFichier;
     switch (commande) {
     case 1:
