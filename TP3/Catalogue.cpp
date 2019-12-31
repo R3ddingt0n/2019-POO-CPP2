@@ -38,27 +38,12 @@ void Catalogue::Afficher() const
     cout << "Appel à la méthode Afficher de <Catalogue>" << endl;
 #endif
     cout << "Affichage du Catalogue" << endl;
-    for(unsigned i(0); i < tailleAct; ++i)
+    for(unsigned i(0); i < mesTrajets.size(); ++i)
     {
-        (*(mesTrajets)[i]).Afficher();
+        mesTrajets[i]->Afficher();
         cout << endl;
     }
     cout << "Fin de l'affichage du Catalogue" << endl;
-} //----- Fin de Afficher
-
-void Catalogue::AfficherResRecherche() const
-// Algorithme :
-//  Appel de la méthode Afficher de chaque trajets correspondant à la recherche
-{
-#ifdef MAP
-    cout << "Appel à la méthode AfficherResRecherche de <Catalogue>" << endl;
-#endif
-    cout << "Affichage du résultat de la recherche" << endl;
-    for(unsigned i(0); i < tailleResRecherche; ++i)
-    {
-        (*(resultat)[i]).Afficher();
-    }
-    cout << "Fin de l'affichage du résultat de la recherche" << endl;
 } //----- Fin de Afficher
 
 void Catalogue::Ajouter(Trajet* trajet)
@@ -68,32 +53,26 @@ void Catalogue::Ajouter(Trajet* trajet)
 #ifdef MAP
     cout << "Appel à la méthode Ajouter de <Catalogue>" << endl;
 #endif
-    if(tailleAct >= tailleMax)
-    {
-        this->Ajuster();
-    }
-    mesTrajets[tailleAct] = trajet;
-    ++tailleAct;
+    mesTrajets.push_back(trajet);
 } //----- Fin de Ajouter
 
 void Catalogue::Rechercher(char* villeDep_, char* villeArr_)
 // Algorithme :
 //  Recherche tous les trajets du catalogue ayant pour ville de départ villeDep_ et ville d'arrivée villeArr_
-//  et les ajoute au tableau contenant les trajets correspondant au résultat de la recherche
+//  et les affiche
 {
 #ifdef MAP
     cout << "Appel à Rechercher() de <Catalogue>" << endl;
 #endif
-    tailleResRecherche = 0;
-    for(unsigned i(0); i < tailleAct; ++i)
+    for(unsigned i(0); i < mesTrajets.size(); ++i)
     {
-        // cout << mesTrajets[i]->getVilleDep() << endl << mesTrajets[i]->getVilleArr() << endl;
-        if(strcmp(mesTrajets[i]->getVilleDep(), villeDep_) == 0)
+//        cout << mesTrajets[i]->getVilleDep() << " " << mesTrajets[i]->getVilleArr() << endl;
+        if(!strncmp(mesTrajets[i]->getVilleDep(), villeDep_, strlen(mesTrajets[i]->getVilleDep())-1))
         {
-            if(strcmp(mesTrajets[i]->getVilleArr(), villeArr_) == 0)
+            if(!strncmp(mesTrajets[i]->getVilleArr(), villeArr_, strlen(mesTrajets[i]->getVilleArr())-1))
             {
-                resultat[tailleResRecherche] = mesTrajets[i];
-                ++tailleResRecherche;
+                mesTrajets[i]->Afficher();
+                cout << endl;
             }
         }
     }
@@ -105,7 +84,7 @@ void Catalogue::SauvegardeComplete(string nomFich) const
     cout << "Appel à SauvegardeComplete() de <Catalogue>" << endl;
 #endif
     ofstream fich (nomFich.c_str());
-    for(unsigned i(0); i<tailleAct;++i){
+    for(unsigned i(0); i<mesTrajets.size();++i){
         mesTrajets[i]->EcrireTrajet(fich);
     }
 }
@@ -126,9 +105,11 @@ void Catalogue::SauvegardeSelonType(string nomFich) const
         return;
     }
     ofstream fich (nomFich.c_str());
-    for(unsigned i(0); i<tailleAct;++i){
+    for(unsigned i(0); i<mesTrajets.size();++i){
         if(mesTrajets[i]->typeTrajet == commande)
+        {
             mesTrajets[i]->EcrireTrajet(fich);
+        }
     }
 }
 
@@ -152,7 +133,7 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const
     case 1:
         cout << "Entrez la ville de départ:" << endl;
         cin >> villeDep;
-        for(i=0; i<tailleAct;++i){
+        for(i=0; i<mesTrajets.size();++i){
             if(!strncmp(mesTrajets[i]->getVilleDep(), villeDep.c_str(), strlen(mesTrajets[i]->getVilleDep())-1))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
@@ -160,7 +141,7 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const
     case 2:
         cout << "Entrez la ville d'arrivée:" << endl;
         cin >> villeArr;
-        for(i=0; i<tailleAct;++i){
+        for(i=0; i<mesTrajets.size();++i){
             string villeA = mesTrajets[i]->getVilleArr();
             if(!strncmp(villeA.c_str(), villeArr.c_str(), villeA.length()-1))
                 mesTrajets[i]->EcrireTrajet(fich);
@@ -171,7 +152,7 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const
         cin >> villeDep;
         cout << "Entrez la ville d'arrivée:" << endl;
         cin >> villeArr;
-        for(i=0; i<tailleAct;++i){
+        for(i=0; i<mesTrajets.size();++i){
             if(!strncmp(mesTrajets[i]->getVilleDep(), villeDep.c_str(), strlen(mesTrajets[i]->getVilleDep())-1) && !strncmp(mesTrajets[i]->getVilleArr(), villeArr.c_str(), strlen(mesTrajets[i]->getVilleArr())-1))
                 mesTrajets[i]->EcrireTrajet(fich);
         }
@@ -187,18 +168,34 @@ void Catalogue::SauvegarderSelonIntervalle(string nomFich) const
     cout << "Appel à SauvegardeSelonIntervalle() de <Catalogue>" << endl;
 #endif
     unsigned min, max;
-    cout << "Borne min de l'intervalle :" << endl;
+    cout << "Borne min de l'intervalle (inclus) :" << endl;
     cin >> min;
-    cout << "Borne min de l'intervalle :" << endl;
+    cout << "Borne min de l'intervalle (inclus) :" << endl;
     cin >> max;
-    if(min > max || min > tailleAct || max > tailleAct)
+    if(min > max || min > mesTrajets.size() || max > mesTrajets.size())
     {
         cout << "Erreur dans le choix de l'intervalle" << endl;
         return;
     }
     ofstream fich (nomFich.c_str());
-    for(unsigned i(min); i<max; ++i){
+    for(unsigned i(min); i <= max; ++i)
+    {
         mesTrajets[i]->EcrireTrajet(fich);
+    }
+}
+
+void Catalogue::LireFichier(string nomFich, vector<Trajet *> & listeTrajets)
+{
+    ifstream fichier(nomFich.c_str());
+    string buffer;
+    fichier.seekg(0, fichier.end);
+    long long length = fichier.tellg();
+    fichier.seekg(0, fichier.beg);
+    long long pos(0);
+    while(fichier.good() && pos != length)
+    {
+        LireTrajet(fichier, listeTrajets);
+        pos = fichier.tellg();
     }
 }
 
@@ -207,21 +204,142 @@ void Catalogue::ChargerFichierComplet(string nomFich)
 #ifdef MAP
     cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
 #endif
-    ifstream fichier(nomFich.c_str());
-    string buffer;
-    fichier.seekg(0, fichier.end);
-    long length = fichier.tellg();
-    fichier.seekg(0, fichier.beg);
     vector<Trajet*> listeTrajets;
-    long pos;
-    while(fichier.good() && pos != length)
-    {
-        LireTrajet(fichier, listeTrajets);
-        pos = fichier.tellg();
-    }
+    LireFichier(nomFich, listeTrajets);
     for(unsigned i(0); i < listeTrajets.size(); ++i)
     {
         Ajouter(listeTrajets[i]);
+    }
+}
+
+void Catalogue::ChargerFichierSelonVille(string nomFich)
+{
+#ifdef MAP
+    cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
+#endif
+    vector<Trajet*> listeTrajets;
+    LireFichier(nomFich, listeTrajets);
+
+    cout << "Bienvenue dans le menu de chargement selon la/les ville(s) :" << endl
+         << "-- (1) Chargement selon la ville de départ" << endl
+         << "-- (2) Chargement selon la ville d'arrivée" << endl
+         << "-- (3) Chargement selon la ville de départ et d'arrivée" << endl;
+    string villeDep;
+    string villeArr;
+    unsigned choix;
+    cin >> choix;
+    unsigned i(0);
+    switch (choix)
+    {
+    case 1:
+        cout << "Entrez la ville de départ:" << endl;
+        cin >> villeDep;
+        for(; i < listeTrajets.size(); ++i)
+        {
+            if(!strncmp(villeDep.c_str(), listeTrajets[i]->getVilleDep(), strlen(listeTrajets[i]->getVilleDep())-1))
+            {
+                Ajouter(listeTrajets[i]);
+            }
+            else
+            {
+                delete listeTrajets[i];
+            }
+        }
+        break;
+    case 2:
+        cout << "Entrez la ville d'arrivée:" << endl;
+        cin >> villeArr;
+        for(; i < listeTrajets.size(); ++i)
+        {
+            if(!strncmp(villeArr.c_str(), listeTrajets[i]->getVilleArr(), strlen(listeTrajets[i]->getVilleArr())-1))
+            {
+                Ajouter(listeTrajets[i]);
+            }
+            else
+            {
+                delete listeTrajets[i];
+            }
+        }
+        break;
+    case 3:
+        cout << "Entrez la ville de départ:" << endl;
+        cin >> villeDep;
+        cout << "Entrez la ville d'arrivée:" << endl;
+        cin >> villeArr;
+        for(; i < listeTrajets.size(); ++i)
+        {
+            if(!strncmp(villeDep.c_str(), listeTrajets[i]->getVilleDep(), strlen(listeTrajets[i]->getVilleDep())-1) && !strncmp(villeArr.c_str(), listeTrajets[i]->getVilleArr(), strlen(listeTrajets[i]->getVilleArr())-1))
+            {
+                Ajouter(listeTrajets[i]);
+            }
+            else
+            {
+                delete listeTrajets[i];
+            }
+        }
+        break;
+    default:
+        cout << "Commande non reconnue" << endl;
+    }
+}
+
+void Catalogue::ChargerFichierSelonType(string nomFich)
+{
+#ifdef MAP
+    cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
+#endif
+    vector<Trajet*> listeTrajets;
+    LireFichier(nomFich, listeTrajets);
+    cout << "Choisir les trajets à conserver :" << endl
+         << "-- (1) Les trajets simples" << endl
+         << "-- (2) Les trajets complexes" << endl;
+    unsigned commande;
+    cin >> commande;
+    if(commande != 1 && commande != 2)
+    {
+        cout << "Commande invalide" << endl;
+        return;
+    }
+    for(unsigned i(0); i < listeTrajets.size(); ++i)
+    {
+        if(listeTrajets[i]->typeTrajet == commande)
+        {
+            Ajouter(listeTrajets[i]);
+        }
+        else
+        {
+            delete listeTrajets[i];
+        }
+    }
+}
+
+void Catalogue::ChargerFichierSelonIntervalle(string nomFich)
+{
+#ifdef MAP
+    cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
+#endif
+    vector<Trajet*> listeTrajets;
+    LireFichier(nomFich, listeTrajets);
+    unsigned min, max;
+    cout << "Borne min de l'intervalle (inclus) :" << endl;
+    cin >> min;
+    cout << "Borne max de l'intervalle (inclus) :" << endl;
+    cin >> max;
+    if(min > max || min > listeTrajets.size()-1 || max > listeTrajets.size()-1)
+    {
+        cout << "Erreur dans le choix de l'intervalle" << endl;
+        return;
+    }
+    for(unsigned i(0); i < listeTrajets.size(); ++i)
+    {
+        if(i >= min && i <= max)
+        {
+            Ajouter(listeTrajets[i]);
+        }
+        else
+        {
+            delete listeTrajets[i];
+        }
     }
 }
 
@@ -306,31 +424,25 @@ void Catalogue::LireTrajetComplexe(ifstream & fichier, vector<Trajet*> & listeTr
 
 
 
-Catalogue::Catalogue (unsigned tailleMax_)
-    : tailleAct(0), tailleMax(tailleMax_)
+Catalogue::Catalogue ()
 {
 #ifdef MAP
     cout << "Appel au constructeur de <Catalogue>" << endl;
 #endif
-    mesTrajets = new Trajet*[tailleMax];
-    resultat = new Trajet*[TAILLE_MAX_RECHERCHE];
-    tailleResRecherche = 0;
 } //----- Fin de Catalogue
 
 
 Catalogue::~Catalogue ( )
 // Algorithme :
-//  Détruit les trajets du catalogue puis les tableaux mesTrajets et resultat
+//  Détruit les trajets du catalogue
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Catalogue>" << endl;
 #endif
-    for(unsigned i(0); i < tailleAct; ++i)
+    for(unsigned i(0); i < mesTrajets.size(); ++i)
     {
-        delete *(mesTrajets + i);
+        delete mesTrajets[i];
     }
-    delete [] mesTrajets;
-    delete [] resultat;
 } //----- Fin de ~Catalogue
 
 
@@ -339,23 +451,3 @@ Catalogue::~Catalogue ( )
 //----------------------------------------------------- Méthodes protégées
 
 //----------------------------------------------------- Méthodes privées
-
-void Catalogue::Ajuster()
-// Algorithme :
-//  Création d'un tableau 2 fois plus grand puis copie des différents pointeurs déjà présent dans le tableau de départ
-//  Destruction du tableau de départ, mesTrajets correspond ensuite au nouveau tableau
-{
-#ifdef MAP
-    cout << "Appel à la méthode Ajuster de <Catalogue>" << endl;
-#endif
-    tailleMax *= 2;
-    Trajet** newTrajets = new Trajet*[tailleMax];
-    for(unsigned i(0); i < tailleAct; ++i)
-    {
-        *newTrajets[i] = *mesTrajets[i];
-    }
-    delete [] *mesTrajets;
-    *mesTrajets = *newTrajets;
-
-
-} //----- Fin de Ajuster
