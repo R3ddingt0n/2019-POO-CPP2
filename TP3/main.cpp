@@ -134,7 +134,7 @@ void SauvegarderCatalogue(Catalogue & catalogue)
 void ChargerCatalogue(Catalogue & catalogue)
 {
     cout << "(1) Charger l'intégralité du fichier" << endl
-         << "(2) Charger selon la villle de départ et/ou d'arrivée" << endl
+         << "(2) Charger selon la ville de départ et/ou d'arrivée" << endl
          << "(3) Charger selon le type de trajet" << endl
          << "(4) Charger selon un intervalle de trajets" << endl;
     int commande(0);
@@ -147,16 +147,13 @@ void ChargerCatalogue(Catalogue & catalogue)
         catalogue.ChargerFichierComplet(nomFichier);
         break;
     case 2:
-        cerr << "Work in progress" << endl;
-        //catalogue.ChargerFichierSelonVille(nomFichier);
+        catalogue.ChargerFichierSelonVille(nomFichier);
         break;
     case 3:
-        cerr << "Work in progress" << endl;
-        //catalogue.ChargerFichierSelonType(nomFichier);
+        catalogue.ChargerFichierSelonType(nomFichier);
         break;
     case 4:
-        cerr << "Work in progress" << endl;
-        //catalogue.ChargerFichierSelonIntervalle(nomFichier);
+        catalogue.ChargerFichierSelonIntervalle(nomFichier);
         break;
     default:
         cerr << "Erreur" << endl;
@@ -171,9 +168,8 @@ void RechercherTrajet(Catalogue & catalogue)
     cin >> villeDep;
     cout << "Ville d'arrivée : ";
     cin >> villeArr;
-    catalogue.Rechercher(villeDep,villeArr);
     cout << endl << "Résultat de la recherche :" <<endl;
-    catalogue.AfficherResRecherche();
+    catalogue.Rechercher(villeDep,villeArr);
     cout << endl;
 }
 

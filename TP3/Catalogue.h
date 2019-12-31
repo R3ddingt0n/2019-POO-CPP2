@@ -66,6 +66,12 @@ public:
 
     void ChargerFichierComplet(string nomFich);
 
+    void ChargerFichierSelonVille(string nomFich);
+
+    void ChargerFichierSelonType(string nomFich);
+
+    void ChargerFichierSelonIntervalle(string nomFich);
+
     void LireTrajet(ifstream & fichier, vector<Trajet*> & listeTrajets);
 
     void LireTrajetSimple(ifstream & fichier, vector<Trajet*> & listeTrajets);
@@ -76,9 +82,9 @@ public:
 
     //-------------------------------------------- Constructeurs - destructeur
 
-    Catalogue (unsigned tailleMax_ = TAILLE_MAX);
+    Catalogue ();
     // Contrat :
-    // Affecte à tailleMax la valeur tailleMax_
+    // Construit le catalogue
 
     virtual ~Catalogue ( );
     // Contrat :
@@ -89,24 +95,16 @@ public:
 protected:
     //----------------------------------------------------- Méthodes protégées
 
-    //----------------------------------------------------- Attributs protégés
-
     void LireFichier(string nomFich, vector<Trajet *> &listeTrajets);
+
+    //----------------------------------------------------- Attributs protégés
     
 private:
     //----------------------------------------------------- Méthodes privées
-    void Ajuster();
-    // Mode d'emploi :
-    // L'utilisateur n'a pas à s'en servir, la méthode est utilisée lors de l'ajout d'un trajet
-    // Contrat :
-    // Double la taille max du tableau (réallocation).
 
     //----------------------------------------------------- Attributs privés
-    unsigned tailleAct; // taille actuelle du tableau de trajets
-    unsigned tailleMax; // taille maximale du tableau de trajets
-    unsigned tailleResRecherche; // taille actuelle du tableau de trajets correspondant au résultat de la recherche
-    Trajet** mesTrajets; // tableau de pointeurs pointant sur les trajets composant le catalogue
-    Trajet** resultat; // tableau de pointeurs pointant sur les trajets correspondant au résultat de la recherche
+    vector<Trajet*> mesTrajets; // tableau de pointeurs pointant sur les trajets composant le catalogue
+    vector<Trajet*> resultat; // tableau de pointeurs pointant sur les trajets correspondant au résultat de la recherche
 };
 
 //-------------------------------- Autres définitions dépendantes de <Catalogue>
