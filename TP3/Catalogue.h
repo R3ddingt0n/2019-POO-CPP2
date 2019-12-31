@@ -104,7 +104,6 @@ private:
 
     //----------------------------------------------------- Attributs privés
     vector<Trajet*> mesTrajets; // tableau de pointeurs pointant sur les trajets composant le catalogue
-    vector<Trajet*> resultat; // tableau de pointeurs pointant sur les trajets correspondant au résultat de la recherche
 };
 
 //-------------------------------- Autres définitions dépendantes de <Catalogue>

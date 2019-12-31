@@ -434,7 +434,7 @@ Catalogue::Catalogue ()
 
 Catalogue::~Catalogue ( )
 // Algorithme :
-//  Détruit les trajets du catalogue puis les tableaux mesTrajets et resultat
+//  Détruit les trajets du catalogue
 {
 #ifdef MAP
     cout << "Appel au destructeur de <Catalogue>" << endl;
