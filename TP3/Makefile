@@ -6,7 +6,7 @@ RMFLAGS=-f
 CPPFLAGS=-ansi -pedantic -Wall -Werror -std=c++11
 CPPFLAGSDEBUG= -g -DMAP
 EDLFLAGS=
-INT=Trajet.h TrajetSimple.h TrajetComplexe.h Catalogue.h
+INT=Trajet.h TrajetSimple.h TrajetComplexe.h Catalogue.h Utils.h
 REAL=$(INT:.h=.cpp) main.cpp
 OBJ=$(REAL:.cpp=.o)
 EXE=main
