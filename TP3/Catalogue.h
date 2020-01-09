@@ -57,26 +57,39 @@ public:
     // Recherche les différents trajets permettant d'aller de villeDep_ à villeArr_
 
     void SauvegardeComplete(string nomFich) const;
+    // Contrat :
+    // Sauvegarde le catalogue entier dans un fichier pouvant être chargé avec la méthode correspondante
 
     void SauvegardeSelonType(string nomFich) const;
+    // Contrat :
+    // Sauvegarde soit uniquement les trajets simples, soit uniquement les trajets composés
+    // du catalogue dans un fichier pouvant être chargé avec la méthode correspondante
 
     void SauvegardeSelonVille(string nomFich) const;
+    // Contrat :
+    // Sauvegarde les trajets du catalogue selon leur ville de départ et/ou d'arrivée
+    // dans un fichier pouvant être chargé avec la méthode correspondante
 
     void SauvegarderSelonIntervalle(string nomFich) const;
+    // Contrat :
+    // Sauvegarde les trajets du catalogue selon un intervalle lu sur l'entrée standard
+    // dans un fichier pouvant être chargé avec la méthode correspondante
 
     void ChargerFichierComplet(string nomFich);
+    // Contrat :
+    // Charge les trajets d'un fichier entier dans le catalogue
 
     void ChargerFichierSelonVille(string nomFich);
+    // Contrat :
+    // Charge les trajets d'un fichier entier dans le catalogue selon leur ville de départ et/ou d'arrivée
 
     void ChargerFichierSelonType(string nomFich);
+    // Contrat :
+    // Charge les trajets d'un fichier entier dans le catalogue selon leur type
 
     void ChargerFichierSelonIntervalle(string nomFich);
-
-    void LireTrajet(ifstream & fichier, vector<Trajet*> & listeTrajets);
-
-    void LireTrajetSimple(ifstream & fichier, vector<Trajet*> & listeTrajets);
-
-    void LireTrajetComplexe(ifstream & fichier, vector<Trajet*> & listeTrajets);
+    // Contrat :
+    // Charge les trajets d'un fichier entier dans le catalogue selon un intervalle lu sur l'entrée standard
 
     //------------------------------------------------- Surcharge d'opérateurs
 
@@ -95,7 +108,23 @@ public:
 protected:
     //----------------------------------------------------- Méthodes protégées
 
-    void LireFichier(string nomFich, vector<Trajet *> &listeTrajets);
+    void LireFichier(string nomFich, vector<Trajet *> & listeTrajets);
+    // Contrat :
+    // Lit le contenu d'un fichier et en extrait les Trajets qui sont ajoutés à listeTrajets
+    // Appelle LireTrajet() pour chaque trajet contenu dans le fichier.
+
+    void LireTrajet(ifstream & fichier, vector<Trajet*> & listeTrajets);
+    // Contrat :
+    // Lit un Trajet depuis un fichier et l'ajoute à listeTrajets.
+    // Appelle LireTrajetSimple() ou LireTrajetComplexe() suivant les cas
+
+    void LireTrajetSimple(ifstream & fichier, vector<Trajet*> & listeTrajets);
+    // Contrat :
+    // Lit un TrajetSimple depuis un fichier et l'ajoute à listeTrajets.
+
+    void LireTrajetComplexe(ifstream & fichier, vector<Trajet*> & listeTrajets);
+    // Contrat :
+    // Lit un TrajetComplexe depuis un fichier et l'ajoute à listeTrajets.
 
     //----------------------------------------------------- Attributs protégés
     

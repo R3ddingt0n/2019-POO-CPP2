@@ -131,9 +131,9 @@ void ChargerCatalogue(Catalogue & catalogue)
 void RechercherTrajet(Catalogue & catalogue)
 {
     char villeDep[100],villeArr[100];
-    cout << "Ville de départ : ";
+    cout << "Ville de départ : " << endl;
     cin >> villeDep;
-    cout << "Ville d'arrivée : ";
+    cout << "Ville d'arrivée : " << endl;
     cin >> villeArr;
     cout << endl << "Résultat de la recherche :" <<endl;
     catalogue.Rechercher(villeDep,villeArr);
