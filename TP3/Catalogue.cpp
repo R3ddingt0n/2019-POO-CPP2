@@ -1,4 +1,4 @@
-/*************************************************************************
+﻿/*************************************************************************
                            Catalogue  -  description
                              -------------------
     début                : 20/11/2019
@@ -22,6 +22,7 @@ using namespace std;
 #include "Trajet.h"
 #include "TrajetSimple.h"
 #include "TrajetComplexe.h"
+#include "Utils.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -119,14 +120,18 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const
     cout << "Appel à SauvegardeSelonVille() de <Catalogue>" << endl;
 #endif
     ofstream fich (nomFich.c_str());
-    cout << "Bienvenue dans le menu de sauvegarde selon ville:" << endl
-         << "-- (1) Sauvegarde selon la ville de départ" << endl
-         << "-- (2) Sauvegarde selon la ville d'arrivée" << endl
-         << "-- (3) Sauvegarde selon la ville de départ et d'arrivée" << endl;
+    unsigned choix(0);
+    while(choix == 0 || choix > 3)
+    {
+        cout << "Bienvenue dans le menu de sauvegarde selon ville:" << endl
+             << "-- (1) Sauvegarde selon la ville de départ" << endl
+             << "-- (2) Sauvegarde selon la ville d'arrivée" << endl
+             << "-- (3) Sauvegarde selon la ville de départ et d'arrivée" << endl;
+        cin >> choix;
+        ClearBuffer();
+    }
     string villeDep;
     string villeArr;
-    unsigned choix;
-    cin >> choix;
     unsigned i;
     switch (choix)
     {
@@ -167,15 +172,14 @@ void Catalogue::SauvegarderSelonIntervalle(string nomFich) const
 #ifdef MAP
     cout << "Appel à SauvegardeSelonIntervalle() de <Catalogue>" << endl;
 #endif
-    unsigned min, max;
-    cout << "Borne min de l'intervalle (inclus) :" << endl;
-    cin >> min;
-    cout << "Borne min de l'intervalle (inclus) :" << endl;
-    cin >> max;
-    if(min > max || min > mesTrajets.size() || max > mesTrajets.size())
+    unsigned min(1), max(0);
+    while(min > max || min > mesTrajets.size() || max > mesTrajets.size())
     {
-        cout << "Erreur dans le choix de l'intervalle" << endl;
-        return;
+        cout << "Borne min de l'intervalle (inclus) :" << endl;
+        cin >> min;
+        cout << "Borne min de l'intervalle (inclus) :" << endl;
+        cin >> max;
+        ClearBuffer();
     }
     ofstream fich (nomFich.c_str());
     for(unsigned i(min); i <= max; ++i)
@@ -220,14 +224,17 @@ void Catalogue::ChargerFichierSelonVille(string nomFich)
     vector<Trajet*> listeTrajets;
     LireFichier(nomFich, listeTrajets);
 
-    cout << "Bienvenue dans le menu de chargement selon la/les ville(s) :" << endl
-         << "-- (1) Chargement selon la ville de départ" << endl
-         << "-- (2) Chargement selon la ville d'arrivée" << endl
-         << "-- (3) Chargement selon la ville de départ et d'arrivée" << endl;
+    unsigned choix(0);
+    while(choix == 0 || choix > 3)
+    {
+        cout << "Bienvenue dans le menu de chargement selon la/les ville(s) :" << endl
+             << "-- (1) Chargement selon la ville de départ" << endl
+             << "-- (2) Chargement selon la ville d'arrivée" << endl
+             << "-- (3) Chargement selon la ville de départ et d'arrivée" << endl;
+        cin >> choix;
+    }
     string villeDep;
     string villeArr;
-    unsigned choix;
-    cin >> choix;
     unsigned i(0);
     switch (choix)
     {
@@ -290,15 +297,13 @@ void Catalogue::ChargerFichierSelonType(string nomFich)
 #endif
     vector<Trajet*> listeTrajets;
     LireFichier(nomFich, listeTrajets);
-    cout << "Choisir les trajets à conserver :" << endl
-         << "-- (1) Les trajets simples" << endl
-         << "-- (2) Les trajets complexes" << endl;
-    unsigned commande;
-    cin >> commande;
-    if(commande != 1 && commande != 2)
+    unsigned commande(0);
+    while(commande == 0 || commande > 2)
     {
-        cout << "Commande invalide" << endl;
-        return;
+        cout << "Choisir les trajets à conserver :" << endl
+             << "-- (1) Les trajets simples" << endl
+             << "-- (2) Les trajets complexes" << endl;
+        cin >> commande;
     }
     for(unsigned i(0); i < listeTrajets.size(); ++i)
     {
@@ -320,15 +325,14 @@ void Catalogue::ChargerFichierSelonIntervalle(string nomFich)
 #endif
     vector<Trajet*> listeTrajets;
     LireFichier(nomFich, listeTrajets);
-    unsigned min, max;
-    cout << "Borne min de l'intervalle (inclus) :" << endl;
-    cin >> min;
-    cout << "Borne max de l'intervalle (inclus) :" << endl;
-    cin >> max;
-    if(min > max || min > listeTrajets.size()-1 || max > listeTrajets.size()-1)
+    unsigned min(1), max(0);
+    while(min > max || min > listeTrajets.size()-1 || max > listeTrajets.size()-1)
     {
-        cout << "Erreur dans le choix de l'intervalle" << endl;
-        return;
+        cout << "Borne min de l'intervalle (inclus) :" << endl;
+        cin >> min;
+        cout << "Borne min de l'intervalle (inclus) :" << endl;
+        cin >> max;
+        ClearBuffer();
     }
     for(unsigned i(0); i < listeTrajets.size(); ++i)
     {
