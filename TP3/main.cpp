@@ -1,7 +1,9 @@
 #include <iostream>
+#include <limits>
 #include "Catalogue.h"
 #include "TrajetSimple.h"
 #include "TrajetComplexe.h"
+#include "Utils.h"
 
 using namespace std;
 #include <string>
@@ -19,7 +21,7 @@ int main()
     int commande = 0;
     Catalogue catalogue = Catalogue();
     cout << "Bienvenue dans ce simulateur de gestion de transports." << endl << endl;
-    while(commande != -1)
+    for(;;)
     {
         cout << "Menu :" << endl
              << "-- (1) Ajouter un trajet au catalogue :" << endl
@@ -50,65 +52,26 @@ int main()
         case 6:
             cout << "Fermeture ..." << endl;
             return 0;
-        case 8:
-            cout << "Entrez le nom du fichier de sauvegarde:" << endl;
-            cin >> nomFich;
-            catalogue.ChargerFichierComplet(nomFich);
-            break;
-        case -1:
-            break;
         default:
             cerr << "Commande inconnue." << endl;
+            ClearBuffer();
             break;
         }
     }
-
-    /*Catalogue catalogue = Catalogue();
-    TrajetSimple* TS1 = new TrajetSimple("Lyon", "Bordeaux", MoyenTransport::TRAIN); // A CHECK SANS LE NEW ET L'ETOILE
-    TrajetSimple* TS2 = new TrajetSimple("Lyon", "Bordeaux", MoyenTransport::AVION);
-    TrajetSimple* TC3_1 = new TrajetSimple("Paris", "Marseille", MoyenTransport::AUTO);
-    TrajetSimple* TC3_2 = new TrajetSimple("Marseille", "Lyon", MoyenTransport::BATEAU);
-    const Trajet* liste[2] = {TC3_1, TC3_2};
-    if(TrajetComplexe::listeCorrect(liste, 2, "Paris", "Lyon"))
-    {
-        TrajetComplexe* TC3 = new TrajetComplexe(liste, 2, "Paris", "Lyon");
-        TC3->Afficher();
-        catalogue.Ajouter(TC3);
-    }
-    catalogue.Ajouter(TS1);
-    catalogue.Ajouter(TS2);
-
-
-
-    //TS1->Afficher();
-    catalogue.Afficher();
-
-    cout << endl << endl << endl << endl;
-
-    char* lyon = "Lyon"; // ne pas delete
-    char* bordeaux = "Bordeaux";
-    catalogue.Rechercher(lyon, bordeaux);
-    catalogue.AfficherResRecherche();
-
-    cout << endl << endl << endl << endl;
-
-    char* paris = "Paris";
-    catalogue.Rechercher(paris, lyon);
-    catalogue.AfficherResRecherche();*/
-
-
-
-    return 0;
 }
 
 void SauvegarderCatalogue(Catalogue & catalogue)
 {
-    cout << "(1) Sauvegarde Complète" << endl
-         << "(2) Sauvegarde selon la ville de départ et/ou d'arrivée" << endl
-         << "(3) Sauvegarde selon le type de trajet" << endl
-         << "(4) Sauvegarde selon un intervalle de trajets" << endl;
     int commande(0);
-    cin >> commande;
+    while(commande == 0 || commande > 4)
+    {
+        cout << "(1) Sauvegarde Complète" << endl
+             << "(2) Sauvegarde selon la ville de départ et/ou d'arrivée" << endl
+             << "(3) Sauvegarde selon le type de trajet" << endl
+             << "(4) Sauvegarde selon un intervalle de trajets" << endl;
+        cin >> commande;
+        ClearBuffer();
+    }
     string nomFichier;
     cout << "Entrez le nom du fichier où vous voulez sauvegarder:" << endl;
     cin >> nomFichier;
@@ -133,12 +96,16 @@ void SauvegarderCatalogue(Catalogue & catalogue)
 
 void ChargerCatalogue(Catalogue & catalogue)
 {
+    int commande(0);
+    while(commande == 0 || commande > 4)
+    {
     cout << "(1) Charger l'intégralité du fichier" << endl
          << "(2) Charger selon la ville de départ et/ou d'arrivée" << endl
          << "(3) Charger selon le type de trajet" << endl
          << "(4) Charger selon un intervalle de trajets" << endl;
-    int commande(0);
     cin >> commande;
+    ClearBuffer();
+    }
     string nomFichier;
     cout << "Entrez le nom du fichier de sauvegarde:" << endl;
     cin >> nomFichier;
@@ -177,17 +144,21 @@ void AjouterTrajetSimple(Catalogue & catalogue)
 {
     char *villeDep = new char[40];
     char *villeArr = new char[40];
-    unsigned idMoyenTransport;
+    unsigned idMoyenTransport(0);
     cout << "Veuillez saisir la ville de départ" << endl;
     cin >> villeDep;
     cout << "Veuillez saisir la ville d'arrivée" << endl;
     cin >> villeArr;
-    cout << "Veuillez choisir le moyen de transport" << endl;
-    cout << "(1) AUTO" << endl
-         << "(2) TRAIN" << endl
-         << "(3) AVION" << endl
-         << "(4) BATEAU" << endl;
-    cin >> idMoyenTransport;
+    while(idMoyenTransport == 0 || idMoyenTransport > 4)
+    {
+        cout << "Veuillez choisir le moyen de transport" << endl;
+        cout << "(1) AUTO" << endl
+             << "(2) TRAIN" << endl
+             << "(3) AVION" << endl
+             << "(4) BATEAU" << endl;
+        cin >> idMoyenTransport;
+        ClearBuffer();
+    }
     TrajetSimple* trajetSimple;
     switch (idMoyenTransport) {
     case 1:
@@ -216,6 +187,7 @@ void AjouterTrajetComplexe(Catalogue & catalogue)
     {
         cout << "De combien de sous-trajets se compose votre trajet complexe ? (entre 2 et 9)" << endl;
         cin >> nbSousTrajets;
+        ClearBuffer();
     }
     char *villeDepGlobal = new char[40];
     char *villeArrGlobal = new char[40];
@@ -224,7 +196,6 @@ void AjouterTrajetComplexe(Catalogue & catalogue)
     cout << "Veuillez saisir la ville d'arrivée du trajet complexe" << endl;
     cin >> villeArrGlobal;
     Trajet** liste = new Trajet*[9];
-    unsigned idMoyenTransport;
     for(unsigned i(0); i < nbSousTrajets; ++i)
     {
         cout << endl << "Composition du trajet simple composant le trajet complexe :" << endl;
@@ -234,12 +205,17 @@ void AjouterTrajetComplexe(Catalogue & catalogue)
         cin >> villeDep;
         cout << "Veuillez saisir la ville d'arrivée" << endl;
         cin >> villeArr;
-        cout << "Veuillez choisir le moyen de transport" << endl;
-        cout << "(1) AUTO" << endl
-             << "(2) TRAIN" << endl
-             << "(3) AVION" << endl
-             << "(4) BATEAU" << endl;
-        cin >> idMoyenTransport;
+        unsigned idMoyenTransport(0);
+        while(idMoyenTransport == 0 || idMoyenTransport > 4)
+        {
+            cout << "Veuillez choisir le moyen de transport" << endl;
+            cout << "(1) AUTO" << endl
+                 << "(2) TRAIN" << endl
+                 << "(3) AVION" << endl
+                 << "(4) BATEAU" << endl;
+            cin >> idMoyenTransport;
+            ClearBuffer();
+        }
         TrajetSimple* trajetSimple;
         switch (idMoyenTransport) {
         case 1:
@@ -255,7 +231,7 @@ void AjouterTrajetComplexe(Catalogue & catalogue)
             trajetSimple = new TrajetSimple(villeDep, villeArr, MoyenTransport::BATEAU);
             break;
         default:
-            cout << "Erreur" << endl;
+            cerr << "Erreur" << endl;
             return;
         }
         liste[i] = trajetSimple;
@@ -266,16 +242,20 @@ void AjouterTrajetComplexe(Catalogue & catalogue)
         catalogue.Ajouter(trajetComplexe);
     } else
     {
-        cout << "Le trajet composé est incorrect, il n'a pas été ajouté au catalogue" << endl;
+        cerr << "Le trajet composé est incorrect, il n'a pas été ajouté au catalogue" << endl;
     }
 }
 
 void AjouterTrajet(Catalogue & catalogue)
 {
-    cout << "(1) Trajet Simple" << endl
-         << "(2) Trajet Complexe" << endl;
     int commande(0);
-    cin >> commande;
+    while(commande == 0 || commande > 2)
+    {
+        cout << "(1) Trajet Simple" << endl
+             << "(2) Trajet Complexe" << endl;
+        cin >> commande;
+        ClearBuffer();
+    }
     switch (commande) {
     case 1:
         AjouterTrajetSimple(catalogue);
