@@ -81,7 +81,7 @@ void Catalogue::Rechercher(char* villeDep_, char* villeArr_)
 
 void Catalogue::SauvegardeComplete(string nomFich) const
 // Algorithme :
-// Parcours le catalogue et écrit chaque trajet dans un fichier
+// Parcourt le catalogue et écrit chaque trajet dans un fichier
 {
 #ifdef MAP
     cout << "Appel à SauvegardeComplete() de <Catalogue>" << endl;
@@ -94,7 +94,7 @@ void Catalogue::SauvegardeComplete(string nomFich) const
 
 void Catalogue::SauvegardeSelonType(string nomFich) const
 // Algorithme :
-// Parcours le catalogue et écrit chaque trajet dans un fichier s'il correspond au type choisi
+// Parcourt le catalogue et écrit chaque trajet dans un fichier s'il correspond au type choisi
 {
 #ifdef MAP
     cout << "Appel à SauvegardeSelonType() de <Catalogue>" << endl;
@@ -118,7 +118,7 @@ void Catalogue::SauvegardeSelonType(string nomFich) const
 
 void Catalogue::SauvegardeSelonVille(string nomFich) const
 // Algorithme :
-// Parcours le catalogue et écrit chaque trajet dans un fichier si ses villes de départ
+// Parcourt le catalogue et écrit chaque trajet dans un fichier si ses villes de départ
 // et/ou d'arrivée correspondent à ce qui est demandé
 { 
 #ifdef MAP
@@ -174,7 +174,7 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const
 
 void Catalogue::SauvegarderSelonIntervalle(string nomFich) const
 // Algorithme :
-// Parcours le catalogue entre min et max et écrit chaque trajet dans un fichier
+// Parcourt le catalogue entre min et max et écrit chaque trajet dans un fichier
 {
 #ifdef MAP
     cout << "Appel à SauvegardeSelonIntervalle() de <Catalogue>" << endl;
@@ -197,7 +197,7 @@ void Catalogue::SauvegarderSelonIntervalle(string nomFich) const
 
 void Catalogue::LireFichier(string nomFich, vector<Trajet *> & listeTrajets)
 // Algorithme :
-// Parcours le fichier jusqu'à la fin et ajoute tous ses trajets à listeTrajets
+// Parcourt le fichier jusqu'à la fin et ajoute tous ses trajets à listeTrajets
 {
     ifstream fichier(nomFich.c_str());
     string buffer;
@@ -214,7 +214,7 @@ void Catalogue::LireFichier(string nomFich, vector<Trajet *> & listeTrajets)
 
 void Catalogue::ChargerFichierComplet(string nomFich)
 // Algorithme :
-// Appelle LireFichier(). Parcours listeTrajets et ajoute chaque Trajet au catalogue.
+// Appelle LireFichier(). Parcourt listeTrajets et ajoute chaque Trajet au catalogue.
 {
 #ifdef MAP
     cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
@@ -229,7 +229,7 @@ void Catalogue::ChargerFichierComplet(string nomFich)
 
 void Catalogue::ChargerFichierSelonVille(string nomFich)
 // Algorithme :
-// Appelle LireFichier(). Parcours listeTrajets et ajoute chaque Trajet au catalogue
+// Appelle LireFichier(). Parcourt listeTrajets et ajoute chaque Trajet au catalogue
 // suivant les villes de départ et/ou d'arrivée
 {
 #ifdef MAP
@@ -306,7 +306,7 @@ void Catalogue::ChargerFichierSelonVille(string nomFich)
 
 void Catalogue::ChargerFichierSelonType(string nomFich)
 // Algorithme :
-// Appelle LireFichier(). Parcours listeTrajets et ajoute chaque Trajet au catalogue
+// Appelle LireFichier(). Parcourt listeTrajets et ajoute chaque Trajet au catalogue
 // suivant leur type
 {
 #ifdef MAP
@@ -337,7 +337,7 @@ void Catalogue::ChargerFichierSelonType(string nomFich)
 
 void Catalogue::ChargerFichierSelonIntervalle(string nomFich)
 // Algorithme :
-// Appelle LireFichier(). Parcours listeTrajets entre min et max et ajoute chaque Trajet au catalogue
+// Appelle LireFichier(). Parcourt listeTrajets entre min et max et ajoute chaque Trajet au catalogue
 {
 #ifdef MAP
     cout << "Appel à ChargerFichierComplet() de <Catalogue>" << endl;
