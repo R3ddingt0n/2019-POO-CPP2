@@ -108,7 +108,7 @@ void ChargerCatalogue(Catalogue & catalogue)
     }
     string nomFichier;
     cout << "Entrez le nom du fichier de sauvegarde:" << endl;
-    cin >> nomFichier;
+    std::getline(cin, nomFichier);
     switch (commande) {
     case 1:
         catalogue.ChargerFichierComplet(nomFichier);
@@ -132,9 +132,9 @@ void RechercherTrajet(Catalogue & catalogue)
 {
     char villeDep[100],villeArr[100];
     cout << "Ville de départ : " << endl;
-    cin >> villeDep;
+    cin.getline(villeDep, 100);
     cout << "Ville d'arrivée : " << endl;
-    cin >> villeArr;
+    cin.getline(villeArr, 100);
     cout << endl << "Résultat de la recherche :" <<endl;
     catalogue.Rechercher(villeDep,villeArr);
     cout << endl;
@@ -146,9 +146,9 @@ void AjouterTrajetSimple(Catalogue & catalogue)
     char *villeArr = new char[40];
     unsigned idMoyenTransport(0);
     cout << "Veuillez saisir la ville de départ" << endl;
-    cin >> villeDep;
+    cin.getline(villeDep, 40);
     cout << "Veuillez saisir la ville d'arrivée" << endl;
-    cin >> villeArr;
+    cin.getline(villeArr, 40);
     while(idMoyenTransport == 0 || idMoyenTransport > 4)
     {
         cout << "Veuillez choisir le moyen de transport" << endl;
@@ -192,9 +192,9 @@ void AjouterTrajetComplexe(Catalogue & catalogue)
     char *villeDepGlobal = new char[40];
     char *villeArrGlobal = new char[40];
     cout << "Veuillez saisir la ville de départ du trajet complexe" << endl;
-    cin >> villeDepGlobal;
+    cin.getline(villeDepGlobal, 40);
     cout << "Veuillez saisir la ville d'arrivée du trajet complexe" << endl;
-    cin >> villeArrGlobal;
+    cin.getline(villeArrGlobal, 40);
     Trajet** liste = new Trajet*[9];
     for(unsigned i(0); i < nbSousTrajets; ++i)
     {
@@ -202,9 +202,9 @@ void AjouterTrajetComplexe(Catalogue & catalogue)
         char *villeDep = new char[40];
         char *villeArr = new char[40];
         cout << "Veuillez saisir la ville de départ" << endl;
-        cin >> villeDep;
+        cin.getline(villeDep, 40);
         cout << "Veuillez saisir la ville d'arrivée" << endl;
-        cin >> villeArr;
+        cin.getline(villeArr,40);
         unsigned idMoyenTransport(0);
         while(idMoyenTransport == 0 || idMoyenTransport > 4)
         {
