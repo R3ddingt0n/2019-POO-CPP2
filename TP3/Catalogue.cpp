@@ -142,7 +142,7 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const
     {
     case 1:
         cout << "Entrez la ville de départ:" << endl;
-        std::getline(cin, villeDep);
+        cin >> villeDep;
         for(i=0; i<mesTrajets.size();++i){
             if(!strncmp(mesTrajets[i]->getVilleDep(), villeDep.c_str(), strlen(mesTrajets[i]->getVilleDep())-1))
                 mesTrajets[i]->EcrireTrajet(fich);
@@ -150,7 +150,7 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const
         break;
     case 2:
         cout << "Entrez la ville d'arrivée:" << endl;
-        std::getline(cin, villeArr);
+        cin >> villeArr;
         for(i=0; i<mesTrajets.size();++i){
             string villeA = mesTrajets[i]->getVilleArr();
             if(!strncmp(villeA.c_str(), villeArr.c_str(), villeA.length()-1))
@@ -159,9 +159,9 @@ void Catalogue::SauvegardeSelonVille(string nomFich) const
         break;
     case 3:
         cout << "Entrez la ville de départ:" << endl;
-        std::getline(cin, villeDep);
+        cin >> villeDep;
         cout << "Entrez la ville d'arrivée:" << endl;
-        std::getline(cin, villeArr);
+        cin >> villeArr;
         for(i=0; i<mesTrajets.size();++i){
             if(!strncmp(mesTrajets[i]->getVilleDep(), villeDep.c_str(), strlen(mesTrajets[i]->getVilleDep())-1) && !strncmp(mesTrajets[i]->getVilleArr(), villeArr.c_str(), strlen(mesTrajets[i]->getVilleArr())-1))
                 mesTrajets[i]->EcrireTrajet(fich);
@@ -254,7 +254,7 @@ void Catalogue::ChargerFichierSelonVille(string nomFich)
     {
     case 1:
         cout << "Entrez la ville de départ:" << endl;
-        std::getline(cin, villeDep);
+        cin >> villeDep;
         for(; i < listeTrajets.size(); ++i)
         {
             if(!strncmp(villeDep.c_str(), listeTrajets[i]->getVilleDep(), strlen(listeTrajets[i]->getVilleDep())-1))
@@ -269,7 +269,7 @@ void Catalogue::ChargerFichierSelonVille(string nomFich)
         break;
     case 2:
         cout << "Entrez la ville d'arrivée:" << endl;
-        std::getline(cin, villeArr);
+        cin >> villeArr;
         for(; i < listeTrajets.size(); ++i)
         {
             if(!strncmp(villeArr.c_str(), listeTrajets[i]->getVilleArr(), strlen(listeTrajets[i]->getVilleArr())-1))
@@ -284,9 +284,9 @@ void Catalogue::ChargerFichierSelonVille(string nomFich)
         break;
     case 3:
         cout << "Entrez la ville de départ:" << endl;
-        std::getline(cin, villeDep);
+        cin >> villeDep;
         cout << "Entrez la ville d'arrivée:" << endl;
-        std::getline(cin, villeArr);
+        cin >> villeArr;
         for(; i < listeTrajets.size(); ++i)
         {
             if(!strncmp(villeDep.c_str(), listeTrajets[i]->getVilleDep(), strlen(listeTrajets[i]->getVilleDep())-1) && !strncmp(villeArr.c_str(), listeTrajets[i]->getVilleArr(), strlen(listeTrajets[i]->getVilleArr())-1))
@@ -374,7 +374,7 @@ void Catalogue::LireTrajet(ifstream & fichier, vector<Trajet*> & listeTrajets)
     cout << "Appel à LireTrajet() de <Catalogue>" << endl;
 #endif
     string buffer;
-    std::getline(fichier, buffer);
+    getline(fichier, buffer);
     if(buffer.at(0) == 'S')
     {
         LireTrajetSimple(fichier, listeTrajets);
@@ -395,11 +395,11 @@ void Catalogue::LireTrajetSimple(ifstream & fichier, vector<Trajet*> &listeTraje
 #endif
     string villeDep;
     string villeArr;
-    std::getline(fichier, villeDep);
-    std::getline(fichier, villeArr);
+    getline(fichier, villeDep);
+    getline(fichier, villeArr);
     int moyenTransport;
     string buffer;
-    std::getline(fichier, buffer);
+    getline(fichier, buffer);
     moyenTransport = atoi(buffer.c_str());
     char *villeDep_ = new char[40];
     char *villeArr_ = new char[40];
@@ -419,18 +419,18 @@ void Catalogue::LireTrajetComplexe(ifstream & fichier, vector<Trajet*> & listeTr
 #endif
     string villeDepGlob;
     string villeArrGlob;
-    std::getline(fichier, villeDepGlob);
-    std::getline(fichier, villeArrGlob);
+    getline(fichier, villeDepGlob);
+    getline(fichier, villeArrGlob);
     unsigned nbSousTrajets;
     string buffer;
     string bufferS;
-    std::getline(fichier, buffer);
+    getline(fichier, buffer);
     nbSousTrajets = atoi(buffer.c_str());
     Trajet** liste = new Trajet*[nbSousTrajets];
     vector<Trajet*> listeSousTrajets;
     for(unsigned i(0); i < nbSousTrajets; ++i)
     {
-        std::getline(fichier, bufferS);
+        getline(fichier, bufferS);
         LireTrajetSimple(fichier,listeSousTrajets);
         liste[i] = listeSousTrajets[i];
     }
