@@ -1,0 +1,8 @@
+/temps/INSA.jpg
+/temps/3IF41.html
+"GET /notesif.js
+"GET /notesif.js
+/chercheurs/gcaplat/Resume%20Modeles%20&%20Metamodeles.pdf
+/temps/style_emploi_du_temps.css
+/temps/3IF1.html
+/cas/themes/insa/media/favicon.ico
