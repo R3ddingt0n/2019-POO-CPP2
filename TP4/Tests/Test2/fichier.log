@@ -1,0 +1,6 @@
+192.168.0.0 - - [08Sep2012111602 +0200] GET temps4IF16.html HTTP1.1 200 12106 - Mozilla 5.0
+192.168.0.0 - - [08Sep2012111605 +0200] GET temps4IF17.html HTTP1.1 200 5189 httpintranet-if.insa-lyon.frtemps4IF16.html Mozilla 5.0
+192.168.0.0 - - [08Sep2012111606 +0200] GET temps4IF18.html HTTP1.1 200 5192 httpintranet-if.insa-lyon.frtemps4IF17.html Mozilla 5.0
+192.168.0.0 - - [08Sep2012111607 +0200] GET temps4IF19.html HTTP1.1 200 5179 httpintranet-if.insa-lyon.frtemps4IF18.html Mozilla 5.0
+192.168.0.0 - - [08Sep2012111608 +0200] GET temps4IF18.html HTTP1.1 200 5179 httpintranet-if.insa-lyon.frtemps4IF19.html Mozilla 5.0
+192.168.0.0 - - [08Sep2012111609 +0200] GET temps4IF19.html HTTP1.1 200 5179 httpintranet-if.insa-lyon.frtemps4IF18.html Mozilla 5.0
