@@ -38,12 +38,6 @@ void Catalog::FillHitsPerTarget(std::vector<Request> & requests)
             ++hitsPerTarget[requests[i].target];
         }
     }
-    unordered_map<string, unsigned>::const_iterator it = hitsPerTarget.begin();
-    while(it != hitsPerTarget.end())
-    {
-        cout << it->first << " -- " << it->second << endl;
-        ++it;
-    }
 }//----- Fin de FillHitsPerTarget
 
 
@@ -58,35 +52,34 @@ void Catalog::ConvertMapToMultimap()
         targetsPerHits.insert(make_pair(it->second, it->first));
         ++it;
     }
-    multimap<unsigned, string>::const_iterator it2 = targetsPerHits.begin();
-    while(it2 != targetsPerHits.end())
-    {
-        cout << it2->first << " -- " << it2->second << endl;
-        ++it2;
-    }
 }//----- Fin de ConvertMapToMultimap
 
 
-//------------------------------------------------- Surcharge d'opérateurs
-/*
-Catalog & Catalog::operator = ( const Catalog & unCatalog )
-// Algorithme :
-//
+void Catalog::FillGraphEdges(std::vector<Request> & requests)
 {
-} //----- Fin de operator =
-*/
+    for(unsigned i (0); i < requests.size(); ++i)
+    {
+        pair<string,string> req = make_pair(requests[i].referer, requests[i].target);
+        if(graphEdges.count(req) == 0)
+        {
+            graphEdges.insert(make_pair(req, 1));
+        }
+        else
+        {
+            ++graphEdges[req];
+        }
+    }
+    map<pair<string,string>, unsigned>::const_iterator it = graphEdges.cbegin();
+    while(it != graphEdges.cend())
+    {
+        cout << it->first.first << " -> " << it->first.second << " (" << it->second << " hits)" << endl;
+        ++it;
+    }
+}//----- Fin de FillGraphEdges
+
+//------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
-
-Catalog::Catalog ( const Catalog & unCatalog )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Catalog>" << endl;
-#endif
-} //----- Fin de Catalog (constructeur de copie)
-
 
 Catalog::Catalog ( )
 // Algorithme :
