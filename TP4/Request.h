@@ -11,6 +11,8 @@
 #define REQUEST_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <string>
+#include <iostream>
 
 //------------------------------------------------------------- Constantes
 
@@ -36,12 +38,23 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Request & operator = ( const Request & unRequest );
+    //Request & operator = ( const Request & unRequest );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+    friend std::istream & operator >> (std::istream & in, Request & request);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    friend std::ostream & operator << (std::ostream & out, const Request & request);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //-------------------------------------------- Constructeurs - destructeur
     Request ( const Request & unRequest );
@@ -50,7 +63,7 @@ public:
     // Contrat :
     //
 
-    Request ( );
+    Request ();
     // Mode d'emploi :
     //
     // Contrat :
@@ -69,6 +82,19 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
+    std::string ipAdress;
+    std::string userLogName;
+    std::string authenticatedUser;
+    std::string date;
+    std::string time;
+    std::string timeZone;
+    std::string httpMethod;
+    std::string target;
+    std::string protocol;
+    unsigned returnCode;
+    unsigned data;
+    std::string referer;
+    std::string userAgent;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Request>
