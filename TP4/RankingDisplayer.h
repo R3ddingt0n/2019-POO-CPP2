@@ -1,76 +1,57 @@
 /*************************************************************************
-                           Catalog  -  description
+                           RankingDisplayer  -  description
                              -------------------
-    début                : 15/01/2020
-    copyright            : (C) 2020 par Nicolas TROUIN & Ghali ElAlaoui ElAbdellaoui
-    e-mail               : nicolas.trouin@insa-lyon.fr & ghali.el-allaoui-el-abdellaoui@insa-lyon.fr
+    début                : $DATE$
+    copyright            : (C) $YEAR$ par $AUTHOR$
+    e-mail               : $EMAIL$
 *************************************************************************/
 
-//---------- Interface de la classe <Catalog> (fichier Catalog.h) ----------------
-#if ! defined ( CATALOG_H )
-#define CATALOG_H
+//---------- Interface de la classe <RankingDisplayer> (fichier RankingDisplayer.h) ----------------
+#if ! defined ( RANKINGDISPLAYER_H )
+#define RANKINGDISPLAYER_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include <unordered_map>
-#include <map>
-#include <string>
-#include <vector>
-
-#include "Request.h"
-#include "RankingDisplayer.h"
+#include "Catalog.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
-class Request;
+class Catalog;
 
 //------------------------------------------------------------------------
-// Rôle de la classe <Catalog>
+// Rôle de la classe <RankingDisplayer>
 //
 //
 //------------------------------------------------------------------------
 
-class Catalog
+class RankingDisplayer
 {
 //----------------------------------------------------------------- PUBLIC
 
-    friend class RankingDisplayer;
-
 public:
 //----------------------------------------------------- Méthodes publiques
-    void FillHitsPerTarget (std::vector<Request> & requests);
+    static void DisplayTopHits (Catalog & catalog, unsigned top);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    void ConvertMapToMultimap ();
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
 
 //------------------------------------------------- Surcharge d'opérateurs
-    //Catalog & operator = ( const Catalog & unCatalog );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
 
 //-------------------------------------------- Constructeurs - destructeur
-    Catalog ( const Catalog & unCatalog );
+    RankingDisplayer ( const RankingDisplayer & unRankingDisplayer );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    Catalog ( );
+    RankingDisplayer ( );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~Catalog ( );
+    virtual ~RankingDisplayer ( );
     // Mode d'emploi :
     //
     // Contrat :
@@ -83,11 +64,9 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
-    std::unordered_map<std::string, unsigned> hitsPerTarget;
-    std::multimap<unsigned, std::string> targetsPerHits;
 };
 
-//-------------------------------- Autres définitions dépendantes de <Catalog>
+//-------------------------------- Autres définitions dépendantes de <RankingDisplayer>
 
-#endif // CATALOG_H
+#endif // RANKINGDISPLAYER_H
 

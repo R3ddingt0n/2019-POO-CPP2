@@ -38,12 +38,6 @@ void Catalog::FillHitsPerTarget(std::vector<Request> & requests)
             ++hitsPerTarget[requests[i].target];
         }
     }
-    unordered_map<string, unsigned>::const_iterator it = hitsPerTarget.begin();
-    while(it != hitsPerTarget.end())
-    {
-        cout << it->first << " -- " << it->second << endl;
-        ++it;
-    }
 }//----- Fin de FillHitsPerTarget
 
 
@@ -57,12 +51,6 @@ void Catalog::ConvertMapToMultimap()
     {
         targetsPerHits.insert(make_pair(it->second, it->first));
         ++it;
-    }
-    multimap<unsigned, string>::const_iterator it2 = targetsPerHits.begin();
-    while(it2 != targetsPerHits.end())
-    {
-        cout << it2->first << " -- " << it2->second << endl;
-        ++it2;
     }
 }//----- Fin de ConvertMapToMultimap
 
