@@ -11,8 +11,8 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Request.h"
@@ -30,25 +30,59 @@ using namespace std;
 
 
 //------------------------------------------------- Surcharge d'opérateurs
+/*
 Request & Request::operator = ( const Request & unRequest )
 // Algorithme :
 //
 {
 } //----- Fin de operator =
+*/
 
+istream & operator >>(istream & in, Request & request)
+{
+    string buffer;
+
+    std::getline(in, request.ipAdress, ' ');
+    std::getline(in, request.userLogName, ' ');
+    std::getline(in, request.authenticatedUser, ' ');
+    std::getline(in, buffer, '[');
+    std::getline(in, request.date, ':');
+    std::getline(in, request.time, ' ');
+    std::getline(in, request.timeZone, ']');
+    std::getline(in, buffer, '"');
+    std::getline(in, request.httpMethod, ' ');
+    std::getline(in, request.target, ' ');
+    std::getline(in, request.protocol, '"');
+    std::getline(in, buffer, ' ');
+    in >> request.returnCode >> request.data;
+    std::getline(in, buffer, '"');
+    std::getline(in, request.referer, '"');
+    std::getline(in, buffer, '"');
+    std::getline(in, request.userAgent, '"');
+
+    return in;
+}
+
+ostream & operator << (ostream & out, const Request & request)
+{
+    out << "FOR TESTING PURPOSE ONLY" << endl;
+    out << request.ipAdress << endl << request.userLogName << endl << request.authenticatedUser << endl << request.date << endl << request.time << endl << request.timeZone << endl << request.httpMethod << endl << request.target << endl << request.protocol << endl << request.returnCode << endl << request.data << endl << request.referer << endl << request.userAgent;
+    return out;
+}
 
 //-------------------------------------------- Constructeurs - destructeur
-Request::Request ( const Request & unRequest )
+
+/*Request::Request ( const Request & request )
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Request>" << endl;
 #endif
-} //----- Fin de Request (constructeur de copie)
+}*/ //----- Fin de Request (constructeur de copie)
 
 
-Request::Request ( )
+Request::Request ()
 // Algorithme :
 //
 {
