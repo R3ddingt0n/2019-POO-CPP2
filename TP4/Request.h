@@ -57,7 +57,7 @@ public:
     //
 
 //-------------------------------------------- Constructeurs - destructeur
-    Request ( const Request & unRequest );
+    Request (const Request & req );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :

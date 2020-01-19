@@ -66,20 +66,24 @@ istream & operator >>(istream & in, Request & request)
 ostream & operator << (ostream & out, const Request & request)
 {
     out << "FOR TESTING PURPOSE ONLY" << endl;
-    out << request.ipAdress << endl << request.userLogName << endl << request.authenticatedUser << endl << request.date << endl << request.time << endl << request.timeZone << endl << request.httpMethod << endl << request.target << endl << request.protocol << endl << request.returnCode << endl << request.data << endl << request.referer << endl << request.userAgent;
+    out << request.ipAdress << " ; " << request.userLogName << " ; " << request.authenticatedUser << " ; " << request.date << " ; " << request.time << " ; " << request.timeZone << " ; " << request.httpMethod << " ; " << request.target << " ; " << request.protocol << " ; " << request.returnCode << " ; " << request.data << " ; " << request.referer << " ; " << request.userAgent;
     return out;
 }
 
 //-------------------------------------------- Constructeurs - destructeur
 
-/*Request::Request ( const Request & request )
+Request::Request ( const Request & req )
+    :ipAdress(req.ipAdress), userLogName(req.userLogName), authenticatedUser(req.authenticatedUser),
+      date(req.date), time(req.time), timeZone(req.timeZone), httpMethod(req.httpMethod),
+      target(req.target), protocol(req.protocol), returnCode(req.returnCode), data(req.data),
+      referer(req.referer), userAgent(req.userAgent)
 // Algorithme :
 //
 {
 #ifdef MAP
     cout << "Appel au constructeur de copie de <Request>" << endl;
 #endif
-}*/ //----- Fin de Request (constructeur de copie)
+} //----- Fin de Request (constructeur de copie)
 
 
 Request::Request ()
