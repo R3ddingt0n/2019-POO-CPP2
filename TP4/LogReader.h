@@ -11,7 +11,10 @@
 #define LOGREADER_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <string>
+#include <vector>
 
+#include "Request.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -28,7 +31,7 @@ class LogReader
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+    static void ReadFile (std::string filename, std::vector<Request> & requests);
     // Mode d'emploi :
     //
     // Contrat :
@@ -36,12 +39,6 @@ public:
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-    LogReader & operator = ( const LogReader & unLogReader );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-
 
 //-------------------------------------------- Constructeurs - destructeur
     LogReader ( const LogReader & unLogReader );

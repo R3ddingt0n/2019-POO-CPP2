@@ -14,6 +14,7 @@
 #include <string>
 #include <iostream>
 
+#include "Catalog.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -27,6 +28,8 @@
 class Request
 {
 //----------------------------------------------------------------- PUBLIC
+
+    friend class Catalog;
 
 public:
 //----------------------------------------------------- Méthodes publiques
@@ -57,7 +60,7 @@ public:
     //
 
 //-------------------------------------------- Constructeurs - destructeur
-    Request ( const Request & unRequest );
+    Request (const Request & req );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :

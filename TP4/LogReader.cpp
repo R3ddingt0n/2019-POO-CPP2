@@ -11,8 +11,9 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
+#include <fstream>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "LogReader.h"
@@ -22,31 +23,26 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type LogReader::Méthode ( liste des paramètres )
+
+void LogReader::ReadFile(string filename, std::vector<Request> & requests)
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
+{
+    ifstream file(filename);
+    while(file.good())
+    {
+        Request req;
+        file >> req;
+        if(!file.good()) break;
+        requests.push_back(req);
+    }
+
+}//----- Fin de ReadFile
 
 
 //------------------------------------------------- Surcharge d'opérateurs
-LogReader & LogReader::operator = ( const LogReader & unLogReader )
-// Algorithme :
-//
-{
-} //----- Fin de operator =
-
 
 //-------------------------------------------- Constructeurs - destructeur
-LogReader::LogReader ( const LogReader & unLogReader )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <LogReader>" << endl;
-#endif
-} //----- Fin de LogReader (constructeur de copie)
-
 
 LogReader::LogReader ( )
 // Algorithme :

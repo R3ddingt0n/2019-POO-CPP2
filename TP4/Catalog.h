@@ -11,10 +11,16 @@
 #define CATALOG_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <unordered_map>
+#include <map>
+#include <string>
+#include <vector>
 
+#include "Request.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
+class Request;
 
 //------------------------------------------------------------------------
 // Rôle de la classe <Catalog>
@@ -28,15 +34,20 @@ class Catalog
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste des paramètres );
+    void FillHitsPerTarget (std::vector<Request> & requests);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
+    void ConvertMapToMultimap ();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
-    Catalog & operator = ( const Catalog & unCatalog );
+    //Catalog & operator = ( const Catalog & unCatalog );
     // Mode d'emploi :
     //
     // Contrat :
@@ -69,6 +80,8 @@ protected:
 
 //----------------------------------------------------- Attributs protégés
 
+    std::unordered_map<std::string, unsigned> hitsPerTarget;
+    std::multimap<unsigned, std::string> targetsPerHits;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Catalog>

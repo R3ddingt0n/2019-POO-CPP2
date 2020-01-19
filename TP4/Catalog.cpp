@@ -11,8 +11,8 @@
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-using namespace std;
 #include <iostream>
+using namespace std;
 
 //------------------------------------------------------ Include personnel
 #include "Catalog.h"
@@ -22,22 +22,62 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-// type Catalog::Méthode ( liste des paramètres )
+
+void Catalog::FillHitsPerTarget(std::vector<Request> & requests)
 // Algorithme :
 //
-//{
-//} //----- Fin de Méthode
+{
+    for(unsigned i (0); i < requests.size(); ++i)
+    {
+        if(hitsPerTarget.count(requests[i].target) == 0)
+        {
+            hitsPerTarget.insert(make_pair(requests[i].target, 1));
+        }
+        else
+        {
+            ++hitsPerTarget[requests[i].target];
+        }
+    }
+    unordered_map<string, unsigned>::const_iterator it = hitsPerTarget.begin();
+    while(it != hitsPerTarget.end())
+    {
+        cout << it->first << " -- " << it->second << endl;
+        ++it;
+    }
+}//----- Fin de FillHitsPerTarget
+
+
+void Catalog::ConvertMapToMultimap()
+// Algorithme :
+//
+{
+    unordered_map<string, unsigned>::const_iterator it = hitsPerTarget.begin();
+    targetsPerHits.clear();
+    while(it != hitsPerTarget.end())
+    {
+        targetsPerHits.insert(make_pair(it->second, it->first));
+        ++it;
+    }
+    multimap<unsigned, string>::const_iterator it2 = targetsPerHits.begin();
+    while(it2 != targetsPerHits.end())
+    {
+        cout << it2->first << " -- " << it2->second << endl;
+        ++it2;
+    }
+}//----- Fin de ConvertMapToMultimap
 
 
 //------------------------------------------------- Surcharge d'opérateurs
+/*
 Catalog & Catalog::operator = ( const Catalog & unCatalog )
 // Algorithme :
 //
 {
 } //----- Fin de operator =
-
+*/
 
 //-------------------------------------------- Constructeurs - destructeur
+
 Catalog::Catalog ( const Catalog & unCatalog )
 // Algorithme :
 //
