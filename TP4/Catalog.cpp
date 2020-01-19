@@ -55,26 +55,31 @@ void Catalog::ConvertMapToMultimap()
 }//----- Fin de ConvertMapToMultimap
 
 
-//------------------------------------------------- Surcharge d'opérateurs
-/*
-Catalog & Catalog::operator = ( const Catalog & unCatalog )
-// Algorithme :
-//
+void Catalog::FillGraphEdges(std::vector<Request> & requests)
 {
-} //----- Fin de operator =
-*/
+    for(unsigned i (0); i < requests.size(); ++i)
+    {
+        pair<string,string> req = make_pair(requests[i].referer, requests[i].target);
+        if(graphEdges.count(req) == 0)
+        {
+            graphEdges.insert(make_pair(req, 1));
+        }
+        else
+        {
+            ++graphEdges[req];
+        }
+    }
+    map<pair<string,string>, unsigned>::const_iterator it = graphEdges.cbegin();
+    while(it != graphEdges.cend())
+    {
+        cout << it->first.first << " -> " << it->first.second << " (" << it->second << " hits)" << endl;
+        ++it;
+    }
+}//----- Fin de FillGraphEdges
+
+//------------------------------------------------- Surcharge d'opérateurs
 
 //-------------------------------------------- Constructeurs - destructeur
-
-Catalog::Catalog ( const Catalog & unCatalog )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <Catalog>" << endl;
-#endif
-} //----- Fin de Catalog (constructeur de copie)
-
 
 Catalog::Catalog ( )
 // Algorithme :

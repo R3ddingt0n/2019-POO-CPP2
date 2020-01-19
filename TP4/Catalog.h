@@ -18,6 +18,7 @@
 
 #include "Request.h"
 #include "RankingDisplayer.h"
+#include "GraphGenerator.h"
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -34,6 +35,7 @@ class Catalog
 //----------------------------------------------------------------- PUBLIC
 
     friend class RankingDisplayer;
+    friend class GraphGenerator;
 
 public:
 //----------------------------------------------------- Méthodes publiques
@@ -44,6 +46,12 @@ public:
     //
 
     void ConvertMapToMultimap ();
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
+    void FillGraphEdges (std::vector<Request> & requests);
     // Mode d'emploi :
     //
     // Contrat :
@@ -85,6 +93,7 @@ protected:
 
     std::unordered_map<std::string, unsigned> hitsPerTarget;
     std::multimap<unsigned, std::string> targetsPerHits;
+    std::map<std::pair<std::string, std::string>, unsigned> graphEdges;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Catalog>
