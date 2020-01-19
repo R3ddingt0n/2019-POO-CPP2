@@ -54,8 +54,13 @@ istream & operator >>(istream & in, Request & request)
     std::getline(in, request.target, ' ');
     std::getline(in, request.protocol, '"');
     std::getline(in, buffer, ' ');
-    in >> request.returnCode >> request.data;
+    in >> request.returnCode;
+    getline(in, buffer, ' ');
     std::getline(in, buffer, '"');
+    if(buffer[0] != '-')
+    {
+        request.data = atoi(buffer.c_str());
+    }
     std::getline(in, request.referer, '"');
     std::getline(in, buffer, '"');
     std::getline(in, request.userAgent, '"');
