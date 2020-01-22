@@ -43,13 +43,6 @@ void GraphGenerator::GenerateGraph(Catalog & catalog, string filename)
 
     //Edges declaration
 
-    map<pair<string,string>, unsigned>::const_iterator it = catalog.graphEdges.cbegin();
-    while(it != catalog.graphEdges.cend())
-    {
-        cout << it->first.first << " -> " << it->first.second << " (" << it->second << " hits)" << endl;
-        ++it;
-    }
-
     map<pair<string, string>, unsigned>::const_iterator itEdge = catalog.graphEdges.cbegin();
     while(itEdge != catalog.graphEdges.cend())
     {

@@ -39,7 +39,7 @@ class Catalog
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    void FillHitsPerTarget (std::vector<Request> & requests);
+    void FillHitsPerTarget (std::vector<Request> & requests, bool optionE = false, int optionT = -1);
     // Mode d'emploi :
     //
     // Contrat :
@@ -51,7 +51,7 @@ public:
     // Contrat :
     //
 
-    void FillGraphEdges (std::vector<Request> & requests);
+    void FillGraphEdges (std::vector<Request> & requests, bool optionE = false, int optionT = -1);
     // Mode d'emploi :
     //
     // Contrat :

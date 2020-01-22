@@ -46,6 +46,19 @@ public:
     //Contrat :
     //
 
+    std::string GetExtension();
+    // type Méthode ( liste des paramètres );
+    // Mode d'emploi :
+    //
+    //Contrat :
+    //
+
+    int GetHour();
+    // type Méthode ( liste des paramètres );
+    // Mode d'emploi :
+    //
+    //Contrat :
+    //
 
 //------------------------------------------------- Surcharge d'opérateurs
     //Request & operator = ( const Request & unRequest );

@@ -78,6 +78,17 @@ void Request::FixTarget()
     target.insert(0, "https://intranet-if.insa-lyon.fr");
 }
 
+string Request::GetExtension()
+{
+    size_t pos = target.find_last_of('.');
+    return target.substr(pos);
+}
+
+int Request::GetHour()
+{
+    return atoi(time.substr(0, 2).c_str());
+}
+
 ostream & operator << (ostream & out, const Request & request)
 {
     out << "FOR TESTING PURPOSE ONLY" << endl;
@@ -124,4 +135,3 @@ Request::~Request ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-
