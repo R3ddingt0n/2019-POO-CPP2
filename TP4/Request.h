@@ -39,6 +39,13 @@ public:
     // Contrat :
     //
 
+    void FixTarget();
+    // type Méthode ( liste des paramètres );
+    // Mode d'emploi :
+    //
+    //Contrat :
+    //
+
 
 //------------------------------------------------- Surcharge d'opérateurs
     //Request & operator = ( const Request & unRequest );
