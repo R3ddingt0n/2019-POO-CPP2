@@ -69,12 +69,12 @@ void Catalog::FillGraphEdges(std::vector<Request> & requests)
             ++graphEdges[req];
         }
     }
-    map<pair<string,string>, unsigned>::const_iterator it = graphEdges.cbegin();
-    while(it != graphEdges.cend())
-    {
-        cout << it->first.first << " -> " << it->first.second << " (" << it->second << " hits)" << endl;
-        ++it;
-    }
+//    map<pair<string,string>, unsigned>::const_iterator it = graphEdges.cbegin();
+//    while(it != graphEdges.cend())
+//    {
+//        cout << it->first.first << " -> " << it->first.second << " (" << it->second << " hits)" << endl;
+//        ++it;
+//    }
 }//----- Fin de FillGraphEdges
 
 //------------------------------------------------- Surcharge d'opérateurs

@@ -78,6 +78,12 @@ void Request::FixTarget()
     target.insert(0, "https://intranet-if.insa-lyon.fr");
 }
 
+void Request::FixReferer()
+{
+    size_t found = referer.find_last_of('?');
+    referer = referer.substr(0, found);
+}
+
 ostream & operator << (ostream & out, const Request & request)
 {
     out << "FOR TESTING PURPOSE ONLY" << endl;
