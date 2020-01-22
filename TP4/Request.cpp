@@ -84,6 +84,17 @@ void Request::FixReferer()
     referer = referer.substr(0, found);
 }
 
+string Request::GetExtension()
+{
+    size_t pos = target.find_last_of('.');
+    return target.substr(pos);
+}
+
+int Request::GetHour()
+{
+    return atoi(time.substr(0, 2).c_str());
+}
+
 ostream & operator << (ostream & out, const Request & request)
 {
     out << "FOR TESTING PURPOSE ONLY" << endl;
@@ -130,4 +141,3 @@ Request::~Request ( )
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-

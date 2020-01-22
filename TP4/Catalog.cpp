@@ -23,19 +23,25 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
-void Catalog::FillHitsPerTarget(std::vector<Request> & requests)
+void Catalog::FillHitsPerTarget(std::vector<Request> & requests, bool optionE, int optionT)
 // Algorithme :
 //
 {
     for(unsigned i (0); i < requests.size(); ++i)
     {
-        if(hitsPerTarget.count(requests[i].target) == 0)
+        if(!optionE || (requests[i].GetExtension() != ".css" && requests[i].GetExtension() != ".js" && requests[i].GetExtension() != ".png" && requests[i].GetExtension() != ".jpg" && requests[i].GetExtension() != ".gif" && requests[i].GetExtension() != ".ico" && requests[i].GetExtension() != ".svg"))
         {
-            hitsPerTarget.insert(make_pair(requests[i].target, 1));
-        }
-        else
-        {
-            ++hitsPerTarget[requests[i].target];
+            if(optionT == -1 || requests[i].GetHour() == optionT)
+            {
+                if(hitsPerTarget.count(requests[i].target) == 0)
+                {
+                    hitsPerTarget.insert(make_pair(requests[i].target, 1));
+                }
+                else
+                {
+                    ++hitsPerTarget[requests[i].target];
+                }
+            }
         }
     }
 }//----- Fin de FillHitsPerTarget
@@ -55,26 +61,26 @@ void Catalog::ConvertMapToMultimap()
 }//----- Fin de ConvertMapToMultimap
 
 
-void Catalog::FillGraphEdges(std::vector<Request> & requests)
+void Catalog::FillGraphEdges(std::vector<Request> & requests, bool optionE, int optionT)
 {
     for(unsigned i (0); i < requests.size(); ++i)
     {
-        pair<string,string> req = make_pair(requests[i].referer, requests[i].target);
-        if(graphEdges.count(req) == 0)
+        if(!optionE || (requests[i].GetExtension() != ".css" && requests[i].GetExtension() != ".js" && requests[i].GetExtension() != ".png" && requests[i].GetExtension() != ".jpg" && requests[i].GetExtension() != ".gif" && requests[i].GetExtension() != ".ico" && requests[i].GetExtension() != ".svg"))
         {
-            graphEdges.insert(make_pair(req, 1));
-        }
-        else
-        {
-            ++graphEdges[req];
+            if(optionT == -1 || requests[i].GetHour() == optionT)
+            {
+                pair<string,string> req = make_pair(requests[i].referer, requests[i].target);
+                if(graphEdges.count(req) == 0)
+                {
+                    graphEdges.insert(make_pair(req, 1));
+                }
+                else
+                {
+                    ++graphEdges[req];
+                }
+            }
         }
     }
-//    map<pair<string,string>, unsigned>::const_iterator it = graphEdges.cbegin();
-//    while(it != graphEdges.cend())
-//    {
-//        cout << it->first.first << " -> " << it->first.second << " (" << it->second << " hits)" << endl;
-//        ++it;
-//    }
 }//----- Fin de FillGraphEdges
 
 //------------------------------------------------- Surcharge d'opérateurs
