@@ -78,6 +78,12 @@ void Request::FixTarget()
     target.insert(0, "https://intranet-if.insa-lyon.fr");
 }
 
+void Request::FixReferer()
+{
+    size_t found = referer.find_last_of('?');
+    referer = referer.substr(0, found);
+}
+
 string Request::GetExtension()
 {
     size_t pos = target.find_last_of('.');

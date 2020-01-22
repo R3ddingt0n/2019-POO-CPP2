@@ -39,6 +39,13 @@ public:
     // Contrat :
     //
 
+    void FixReferer();
+    // type Méthode ( liste des paramètres );
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+
     void FixTarget();
     // type Méthode ( liste des paramètres );
     // Mode d'emploi :
