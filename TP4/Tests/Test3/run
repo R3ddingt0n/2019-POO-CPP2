@@ -1,1 +1,1 @@
-./analog -e entree.txt
+./analog -e std.in
