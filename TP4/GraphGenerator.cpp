@@ -51,8 +51,6 @@ void GraphGenerator::GenerateGraph(Catalog & catalog, string filename)
         ++itEdge;
     }
 
-
-
     file << "}";
 }//----- Fin de Méthode
 
