@@ -9,7 +9,7 @@ EDLFLAGS=
 INT=Request.h Catalog.h LogReader.h RankingDisplayer.h GraphGenerator.h
 REAL=$(INT:.h=.cpp) main.cpp
 OBJ=$(REAL:.cpp=.o)
-EXE=main
+EXE=analog
 LIBS=
 CLEAN=clean
 CORE=core
