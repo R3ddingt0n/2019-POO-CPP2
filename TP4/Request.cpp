@@ -60,12 +60,22 @@ istream & operator >>(istream & in, Request & request)
     if(buffer[0] != '-')
     {
         request.data = atoi(buffer.c_str());
+    }else
+    {
+        request.data = '-';
     }
     std::getline(in, request.referer, '"');
     std::getline(in, buffer, '"');
     std::getline(in, request.userAgent, '"');
 
     return in;
+}
+
+void Request::FixTarget()
+{
+    size_t found = target.find_last_of('?');
+    target = target.substr(0, found);
+    target.insert(0, "https://intranet-if.insa-lyon.fr");
 }
 
 ostream & operator << (ostream & out, const Request & request)

@@ -33,6 +33,7 @@ void LogReader::ReadFile(string filename, std::vector<Request> & requests)
     {
         Request req;
         file >> req;
+        req.FixTarget();
         if(!file.good()) break;
         requests.push_back(req);
     }
