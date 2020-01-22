@@ -1,4 +1,4 @@
-/*************************************************************************
+﻿/*************************************************************************
                            GraphGenerator  -  description
                              -------------------
     début                : $DATE$
@@ -27,10 +27,38 @@ void GraphGenerator::GenerateGraph(Catalog & catalog, string filename)
 // Algorithme :
 //
 {
+    map<string, unsigned> graphNodes;
+    GetNodes(catalog, graphNodes);
+
     std::ofstream file(filename);
     file << "digraph {" << endl;
 
-        //TODO
+    //Nodes declaration
+    map<string, unsigned>::const_iterator itNode = graphNodes.cbegin();
+    while(itNode != graphNodes.cend())
+    {
+        file << "node" << itNode->second << " [label=\"" << itNode->first << "\"];" << endl;
+        ++itNode;
+    }
+
+    //Edges declaration
+
+    map<pair<string,string>, unsigned>::const_iterator it = catalog.graphEdges.cbegin();
+    while(it != catalog.graphEdges.cend())
+    {
+        cout << it->first.first << " -> " << it->first.second << " (" << it->second << " hits)" << endl;
+        ++it;
+    }
+
+    map<pair<string, string>, unsigned>::const_iterator itEdge = catalog.graphEdges.cbegin();
+    while(itEdge != catalog.graphEdges.cend())
+    {
+        //file << "node" << graphNodes[itEdge->first.first] << " -> node" << graphNodes[itEdge->first.first] << " [label=\"" << itEdge->second << "\"];" << endl;
+        file << "node" << graphNodes[itEdge->first.first] << " -> node" << graphNodes[itEdge->first.second] << " [label=\"" << itEdge->second << "\"];" << endl;
+        ++itEdge;
+    }
+
+
 
     file << "}";
 }//----- Fin de Méthode
@@ -65,3 +93,23 @@ GraphGenerator::~GraphGenerator ( )
 
 //----------------------------------------------------- Méthodes protégées
 
+void GraphGenerator::GetNodes(Catalog & catalog, map<string, unsigned> & graphNodes)
+{
+
+    map<pair<string, string>, unsigned>::const_iterator itEdge = catalog.graphEdges.cbegin();
+    unsigned i(0);
+    while(itEdge != catalog.graphEdges.cend())
+    {
+        if(graphNodes.count(itEdge->first.first) == 0)
+        {
+            graphNodes.insert(make_pair(itEdge->first.first, i));
+            ++i;
+        }
+        if(graphNodes.count(itEdge->first.second) == 0)
+        {
+            graphNodes.insert(make_pair(itEdge->first.second, i));
+            ++i;
+        }
+        ++itEdge;
+    }
+} //----- Fin de GetNodes

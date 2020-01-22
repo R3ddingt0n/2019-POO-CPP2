@@ -61,6 +61,11 @@ public:
 
 protected:
 //----------------------------------------------------- Méthodes protégées
+    static void GetNodes(Catalog & catalog, std::map<std::string, unsigned> & graphNodes);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
 //----------------------------------------------------- Attributs protégés
 
