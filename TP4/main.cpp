@@ -54,15 +54,21 @@ int main(int argc, char* argv[]){
     Catalog c;
     if(graph)
     {
+        cout << "Dot-file <" << graphFile << "> generated." << endl;
         c.FillGraphEdges(tab, optionE, time);
         GraphGenerator::GenerateGraph(c, graphFile);
     }
-    else
+    if(optionT)
     {
-        c.FillHitsPerTarget(tab, optionE, time);
-        c.ConvertMapToMultimap();
-        RankingDisplayer::DisplayTopHits(c, TOP);
+        cout << "Warning : only hits between " << (time < 10 ? "0" : "") << time << ":00:00 and " << (time+1 < 10 ? "0" : "") << time+1 << ":00:00 have been taken into account." << endl;
     }
+    if(optionE)
+    {
+        cout << "Warning : only hits on non-JS, non-CSS, non-image documents have been taken into account." << endl;
+    }
+    c.FillHitsPerTarget(tab, optionE, time);
+    c.ConvertMapToMultimap();
+    RankingDisplayer::DisplayTopHits(c, TOP);
 
     return 0;
 }
