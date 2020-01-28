@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
                  << "\t-g <filename.dot> : This option creates a graph of the different request targets from the log file." << endl
                  << "\t-e : This option excludes every target that has a .png, .jpg, .jpeg, .gif, .ico, .css, .js extension." << endl
                  << "\t-t <hour> : This option excludes every request that was not done between <hour>:00 and <hour+1>:00. <hour> has to be an integer." << endl;
-            return 2;
+            return 1;
         }
         ++i;
     }
