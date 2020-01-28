@@ -1,0 +1,8 @@
+digraph {
+node0 [label="http://intranet-if.insa-lyon.fr/temps/3IF38.html"];
+node2 [label="http://intranet-if.insa-lyon.fr/temps/4IF15.html"];
+node1 [label="https://intranet-if.insa-lyon.fr/temps/3IF39.html"];
+node3 [label="https://intranet-if.insa-lyon.fr/temps/4IF16.html"];
+node0 -> node1 [label="1"];
+node2 -> node3 [label="1"];
+}
