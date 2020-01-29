@@ -1,0 +1,1 @@
+./analog -g graphe.dot -t 26 fichier.log
